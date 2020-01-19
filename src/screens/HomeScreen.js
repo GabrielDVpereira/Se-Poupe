@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 export const HomeScreen = () => {
   return (
@@ -16,7 +17,7 @@ export const HomeScreen = () => {
       style={styles.container}
     >
       <View style={styles.header}>
-        <Text style={styles.text}>10/02</Text>
+        <Text style={styles.textMes}>Janeiro</Text>
         <Text style={styles.text}>Você gastou R$2000,0</Text>
       </View>
 
@@ -25,8 +26,9 @@ export const HomeScreen = () => {
           <TouchableOpacity onPress={() => {}}>
             <MaterialIcons name="add-box" size={32} color="#fff" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity style={styles.order} onPress={() => {}}>
             <Text style={[styles.text, { fontSize: 16 }]}>Order By</Text>
+            <Entypo name="triangle-down" size={32} color="#fff" />
           </TouchableOpacity>
         </View>
 
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignSelf: 'center',
-    top: 60,
+    top: 100,
   },
   content: {
     top: 150,
@@ -115,5 +117,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  textMes: {
+    backgroundColor: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    fontSize: 22,
+    padding: 8,
+    borderRadius: 5,
+    margin: 5,
+  },
+  order: {
+    flexDirection: 'row',
   },
 });
