@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,13 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { SpendModal } from '../components/modals/newSpendModal';
+import { SpendCards } from '../components/spendCards';
 
 export const HomeScreen = () => {
+
+  const [spendModalVisible, setSpendModalVisible ] = useState(false);
+
   return (
     <LinearGradient
       colors={['#6A0DAD', '#7029a3', '#9963bf']}
@@ -23,7 +28,7 @@ export const HomeScreen = () => {
 
       <View style={styles.content}>
         <View style={styles.contentTop}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => {setSpendModalVisible(true)}}>
             <MaterialIcons name="add-box" size={32} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.order} onPress={() => {}}>
@@ -31,49 +36,8 @@ export const HomeScreen = () => {
             <Entypo name="triangle-down" size={32} color="#fff" />
           </TouchableOpacity>
         </View>
-
-        <ScrollView style={styles.contentBody}>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-          <View style={styles.card}>
-            <Text>Fone</Text>
-            <Text>R$ 200,00</Text>
-            <Text>12/02/2020</Text>
-          </View>
-        </ScrollView>
+        <SpendCards />
+        <SpendModal modalVisible={spendModalVisible}/>
       </View>
     </LinearGradient>
   );
@@ -104,20 +68,6 @@ const styles = StyleSheet.create({
     margin: 50,
     justifyContent: 'space-between',
   },
-  contentBody: {
-    margin: 10,
-  },
-  card: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 100,
-    elevation: 10,
-    borderRadius: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   textMes: {
     backgroundColor: '#fff',
     fontWeight: 'bold',
@@ -129,5 +79,5 @@ const styles = StyleSheet.create({
   },
   order: {
     flexDirection: 'row',
-  },
+  }
 });
