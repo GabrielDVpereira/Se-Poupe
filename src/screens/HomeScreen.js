@@ -1,21 +1,34 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
+  Modal,
+  TextInput,
+  KeyboardAvoidingView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { SpendModal } from '../components/modals/newSpendModal';
 import { SpendCards } from '../components/spendCards';
+import DatePicker from '../components/DatePicker';
 
 export const HomeScreen = () => {
 
   const [spendModalVisible, setSpendModalVisible ] = useState(false);
-
+  const [spendingName, setSpendingName ] = useState('');
+  const [spendingValue, setSpendingValue ] = useState('');
+  const [spendingLocal, setSpendingLocal ] = useState('');
+  const [spendingDate, setSpendingDate ] = useState('');
+  const [spendCategory, setSpendingCategory ] = useState('');
+  const [showDate, setShowDatePicker] = useState(false);
+  
+  const showDatePicker = (show, date) => {
+    setShowDatePicker(show);
+    setSpendingDate(date)
+  }
+  
   return (
     <LinearGradient
       colors={['#6A0DAD', '#7029a3', '#9963bf']}
@@ -31,13 +44,42 @@ export const HomeScreen = () => {
           <TouchableOpacity onPress={() => {setSpendModalVisible(true)}}>
             <MaterialIcons name="add-box" size={32} color="#fff" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.order} onPress={() => {}}>
+          <TouchableOpacity style={styles.order}>
             <Text style={[styles.text, { fontSize: 16 }]}>Order By</Text>
             <Entypo name="triangle-down" size={32} color="#fff" />
           </TouchableOpacity>
         </View>
         <SpendCards />
-        <SpendModal modalVisible={spendModalVisible}/>
+        
+          <Modal visible={spendModalVisible} transparent={true} animationType='slide'>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modaltTitle}>Adicione um novo gasto  </Text>
+              <TextInput style={styles.input} placeholder={'Nome do gasto'} onChangeText ={(text) =>{setSpendingName(text)}}/>
+              <TextInput style={styles.input} placeholder={'Valor'} onChangeText ={(text) =>{setSpendingValue(text)}}/>
+              <TextInput style={styles.input} placeholder={'Local'} onChangeText ={(text) =>{setSpendingLocal(text)}}/>
+              <TextInput style={styles.input} placeholder={'Categoria'} onChangeText ={(text) =>{setSpendingCategory(text)}}/>
+              <TouchableOpacity style = {styles.datePicker} onPress={() => { showDatePicker(true) }}>
+                <Text>Data</Text>
+              </TouchableOpacity>
+                <View style={styles.modalButtons} >
+                  <KeyboardAvoidingView behavior="position" enabled>
+                      <TouchableOpacity style={styles.createButton} onPress={() => {
+                        console.log(spendingName)
+                        console.log(spendingValue)
+                        console.log(spendingLocal)
+                        console.log(spendingDate)
+                        console.log(spendCategory)
+                      }}>
+                        <Text>Criar</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.cancelButton} onPress={() => {setSpendModalVisible(false)}}>
+                        <Text>Cancelar</Text>
+                      </TouchableOpacity>
+                  </KeyboardAvoidingView>
+                </View>
+            </View>
+          </Modal>
+          <DatePicker show ={showDate} showDatePicker ={showDatePicker}/>
       </View>
     </LinearGradient>
   );
@@ -79,5 +121,32 @@ const styles = StyleSheet.create({
   },
   order: {
     flexDirection: 'row',
+  },
+  modalContainer:{
+    width: 300,
+    height: 400, 
+    padding: 20, 
+    backgroundColor: "#fff", 
+    alignSelf: 'center',
+    top: 100, 
+    elevation: 15
+  },
+  modaltTitle:{
+    alignSelf: 'center'
+  },
+  input:{
+    top:30,
+    marginVertical: 5,
+    borderBottomWidth: 1,
+    width: 200
+  },
+  modalButtons:{
+    flex: 1, 
+    alignItems: 'center', 
+    flexDirection: 'row'
+  },
+  datePicker: {
+    top: 40
   }
+
 });
