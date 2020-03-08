@@ -24,47 +24,53 @@ export default function spendModal({ modalVisible, showModal }) {
   };
 
   return (
-    <Modal visible={modalVisible} transparent animationType="slide">
-      <View style={styles.modalContainer}>
-        <Text style={styles.modaltTitle}>Adicione um novo gasto </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nome do gasto"
-          onChangeText={text => {
-            setSpendingName(text);
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Valor"
-          onChangeText={text => {
-            setSpendingValue(text);
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Local"
-          onChangeText={text => {
-            setSpendingLocal(text);
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Categoria"
-          onChangeText={text => {
-            setSpendingCategory(text);
-          }}
-        />
-        <TouchableOpacity
-          style={styles.datePicker}
-          onPress={() => {
-            showDatePicker(true);
-          }}
-        >
-          <Text>Data</Text>
-        </TouchableOpacity>
-        <View style={styles.modalButtons}>
-          <KeyboardAvoidingView behavior="position" enabled>
+    <Modal visible={modalVisible} transparent animationType="fade">
+      <View style={styles.container}>
+        <View behavior="position" style={styles.modalContainer}>
+          <Text style={styles.modaltTitle}>Adicione um novo gasto </Text>
+          <View style={styles.line} />
+          <View style={styles.modalForm}>
+            <TextInput
+              style={styles.input}
+              placeholder="Nome do gasto"
+              onChangeText={text => {
+                setSpendingName(text);
+              }}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Valor"
+              onChangeText={text => {
+                setSpendingValue(text);
+              }}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Local"
+              onChangeText={text => {
+                setSpendingLocal(text);
+              }}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Categoria"
+              onChangeText={text => {
+                setSpendingCategory(text);
+              }}
+            />
+            <TouchableOpacity
+              style={styles.datePicker}
+              onPress={() => {
+                showDatePicker(true);
+              }}
+            >
+              <Text>Data</Text>
+              <DatePicker show={showDate} showDatePicker={showDatePicker} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.line} />
+
+          <View style={styles.modalButtons}>
             <TouchableOpacity
               style={styles.createButton}
               onPress={() => {
@@ -85,8 +91,7 @@ export default function spendModal({ modalVisible, showModal }) {
             >
               <Text>Cancelar</Text>
             </TouchableOpacity>
-            <DatePicker show={showDate} showDatePicker={showDatePicker} />
-          </KeyboardAvoidingView>
+          </View>
         </View>
       </View>
     </Modal>
@@ -94,17 +99,31 @@ export default function spendModal({ modalVisible, showModal }) {
 }
 
 const styles = StyleSheet.create({
+  line: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    width: '100%',
+    top: 20,
+  },
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: ' rgba(0, 0, 0, 0.3)',
+  },
   modalContainer: {
     width: 300,
     height: 400,
-    padding: 20,
     backgroundColor: '#fff',
     alignSelf: 'center',
     top: 100,
     elevation: 15,
   },
+  modalForm: {
+    padding: 20,
+  },
   modaltTitle: {
     alignSelf: 'center',
+    padding: 10,
   },
   input: {
     top: 30,
@@ -113,11 +132,14 @@ const styles = StyleSheet.create({
     width: 200,
   },
   modalButtons: {
-    flex: 1,
+    top: 40,
     alignItems: 'center',
     flexDirection: 'row',
+    marginHorizontal: 20,
+    justifyContent: 'space-around',
   },
   datePicker: {
-    top: 40,
+    top: 30,
+    marginVertical: 5,
   },
 });
