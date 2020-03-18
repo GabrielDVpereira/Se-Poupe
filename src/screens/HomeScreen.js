@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import SpendModal from '../components/spendModal';
+import { SpendContextProvider } from '../contexts/SpendContext';
 
 import { SpendCards } from '../components/spendCards';
 
 export const HomeScreen = () => {
   const [spendModalVisible, setSpendModalVisible] = useState(false);
+  const [totalSpent, setTotal] = useState(0);
+  const [acctualMonth, setMonth] = useState('');
+  const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ];
+
+  useEffect(() => {
+    const date = new Date();
+    const month = date.getMonth();
+    setMonth(months[month]);
+  });
 
   const showModal = show => {
     setSpendModalVisible(show);
@@ -18,27 +41,28 @@ export const HomeScreen = () => {
       style={styles.container}
     >
       <View style={styles.header}>
-        <Text style={styles.textMes}>Janeiro</Text>
-        <Text style={styles.text}>Você gastou R$2000,0</Text>
+        <Text style={styles.textMes}>{acctualMonth}</Text>
+        <Text style={styles.text}>Você gastou R$ {totalSpent}</Text>
       </View>
-
-      <View style={styles.content}>
-        <View style={styles.contentTop}>
-          <TouchableOpacity
-            onPress={() => {
-              setSpendModalVisible(true);
-            }}
-          >
-            <MaterialIcons name="add-box" size={32} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.order}>
-            <Text style={[styles.text, { fontSize: 16 }]}>Order By</Text>
-            <Entypo name="triangle-down" size={32} color="#fff" />
-          </TouchableOpacity>
+      <SpendContextProvider>
+        <View style={styles.content}>
+          <View style={styles.contentTop}>
+            <TouchableOpacity
+              onPress={() => {
+                setSpendModalVisible(true);
+              }}
+            >
+              <MaterialIcons name="add-box" size={32} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.order}>
+              <Text style={[styles.text, { fontSize: 16 }]}>Order By</Text>
+              <Entypo name="triangle-down" size={32} color="#fff" />
+            </TouchableOpacity>
+          </View>
+          <SpendCards />
         </View>
-        <SpendCards />
-      </View>
-      <SpendModal modalVisible={spendModalVisible} showModal={showModal} />
+        <SpendModal modalVisible={spendModalVisible} showModal={showModal} />
+      </SpendContextProvider>
     </LinearGradient>
   );
 };

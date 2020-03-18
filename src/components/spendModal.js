@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -7,20 +7,50 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import moment from 'moment';
 import DatePicker from './DatePicker';
+import { api } from '../config/api/axios';
+import { SpendContext } from '../contexts/SpendContext';
 
 export default function spendModal({ modalVisible, showModal }) {
+  const { spends, dispatch } = useContext(SpendContext);
   const [spendingName, setSpendingName] = useState('');
   const [spendingValue, setSpendingValue] = useState('');
   const [spendingLocal, setSpendingLocal] = useState('');
-  const [spendingDate, setSpendingDate] = useState('');
+  const [spendingDate, setSpendingDate] = useState(
+    moment().format('DD/MM/YYYY')
+  );
   const [spendCategory, setSpendingCategory] = useState('');
   const [showDate, setShowDatePicker] = useState(false);
 
   const showDatePicker = (show, date) => {
     setShowDatePicker(show);
     setSpendingDate(date);
+  };
+
+  const newSpend = async () => {
+    const spendData = {
+      name: spendingName,
+      value: spendingValue,
+      local: spendingLocal,
+      date: spendingDate,
+      category: spendCategory,
+    };
+
+    try {
+      const request = await api.post('/spend', spendData);
+      if (request.status === 200) {
+        showModal(false);
+        Alert.alert('Success', 'Spend successfully created!', [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -30,6 +60,16 @@ export default function spendModal({ modalVisible, showModal }) {
           <Text style={styles.modaltTitle}>Adicione um novo gasto </Text>
           <View style={styles.line} />
           <View style={styles.modalForm}>
+            <TouchableOpacity
+              style={styles.datePicker}
+              onPress={() => {
+                showDatePicker(true);
+              }}
+            >
+              <Text style={{ paddingRight: 10 }}>{spendingDate}</Text>
+              <Entypo name="calendar" size={20} color="#000" />
+              <DatePicker show={showDate} showDatePicker={showDatePicker} />
+            </TouchableOpacity>
             <TextInput
               style={styles.input}
               placeholder="Nome do gasto"
@@ -58,30 +98,17 @@ export default function spendModal({ modalVisible, showModal }) {
                 setSpendingCategory(text);
               }}
             />
-            <TouchableOpacity
-              style={styles.datePicker}
-              onPress={() => {
-                showDatePicker(true);
-              }}
-            >
-              <Text>Data</Text>
-              <DatePicker show={showDate} showDatePicker={showDatePicker} />
-            </TouchableOpacity>
           </View>
-          <View style={styles.line} />
 
           <View style={styles.modalButtons}>
             <TouchableOpacity
               style={styles.createButton}
               onPress={() => {
-                console.log(spendingName);
-                console.log(spendingValue);
-                console.log(spendingLocal);
-                console.log(spendingDate);
-                console.log(spendCategory);
+                // dispatch({ type: 'ADD_SPEND', spend: [{ teste2: 'teste' }] });
+                newSpend();
               }}
             >
-              <Text>Criar</Text>
+              <Text style={styles.createText}>Criar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.cancelButton}
@@ -89,7 +116,7 @@ export default function spendModal({ modalVisible, showModal }) {
                 showModal(false);
               }}
             >
-              <Text>Cancelar</Text>
+              <Text style={styles.cancelText}>Cancelar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -108,11 +135,10 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: ' rgba(0, 0, 0, 0.3)',
+    backgroundColor: ' rgba(0, 0, 0, 0.6)',
   },
   modalContainer: {
     width: 300,
-    height: 400,
     backgroundColor: '#fff',
     alignSelf: 'center',
     top: 100,
@@ -120,10 +146,13 @@ const styles = StyleSheet.create({
   },
   modalForm: {
     padding: 20,
+    marginVertical: 15,
   },
   modaltTitle: {
     alignSelf: 'center',
     padding: 10,
+    fontSize: 20,
+    fontFamily: '',
   },
   input: {
     top: 30,
@@ -132,14 +161,38 @@ const styles = StyleSheet.create({
     width: 200,
   },
   modalButtons: {
-    top: 40,
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 20,
     justifyContent: 'space-around',
+    elevation: 10,
   },
   datePicker: {
-    top: 30,
     marginVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: 'red',
+    width: '100%',
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  createButton: {
+    flex: 1,
+    backgroundColor: '#00008b',
+    width: '100%',
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  createText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  cancelText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
