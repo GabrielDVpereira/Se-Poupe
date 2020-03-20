@@ -10,14 +10,13 @@ export function SpendContextProvider(props) {
     async function fetchSpends() {
       try {
         const spendResponse = await api.get('/spend');
-        dispatch({ type: 'ADD_SPEND', spend: spendResponse.data.response });
+        dispatch({ spend: spendResponse.data.response });
       } catch (error) {
         console.error(error);
       }
     }
     fetchSpends();
   }, []);
-  console.log(spends);
   return (
     <SpendContext.Provider value={{ spends, dispatch }}>
       {props.children}

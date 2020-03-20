@@ -16,7 +16,8 @@ import { api } from '../config/api/axios';
 import { SpendContext } from '../contexts/SpendContext';
 
 export default function spendModal({ modalVisible, showModal }) {
-  const { spends, dispatch } = useContext(SpendContext);
+  const { dispatch } = useContext(SpendContext);
+
   const [spendingName, setSpendingName] = useState('');
   const [spendingValue, setSpendingValue] = useState('');
   const [spendingLocal, setSpendingLocal] = useState('');
@@ -43,9 +44,10 @@ export default function spendModal({ modalVisible, showModal }) {
     try {
       const request = await api.post('/spend', spendData);
       if (request.status === 200) {
+        dispatch({ type: 'ADD_SPEND', spend: request.data.response });
         showModal(false);
         Alert.alert('Success', 'Spend successfully created!', [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
+          { text: 'OK', onPress: () => {} },
         ]);
       }
     } catch (error) {

@@ -1,8 +1,9 @@
 export const spendReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_SPEND':
-      return [...action.spend, ...state];
+      console.log('new spend!', action.spend);
+      return [action.spend, ...state];
     default:
-      return state;
+      return action.spend;
   }
 };
