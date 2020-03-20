@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function({ navigation }) {
+export default function SummaryScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('category details')}>
-        <Text>Category</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('SummaryDetails')}>
+        <Text>Summary Screen!!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -14,7 +14,7 @@ export default function({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

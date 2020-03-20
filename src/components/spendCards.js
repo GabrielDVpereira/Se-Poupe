@@ -20,7 +20,7 @@ export const SpendCards = () => {
 
 const styles = StyleSheet.create({
   contentBody: {
-    margin: 10,
+    marginHorizontal: 10,
   },
   card: {
     marginTop: 20,

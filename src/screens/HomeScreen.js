@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     top: 100,
   },
   content: {
-    top: 150,
+    top: 100,
     flex: 1,
   },
   contentTop: {
