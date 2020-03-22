@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import moment from 'moment';
 import { SpendContext } from '../contexts/SpendContext';
 
 export const SpendCards = () => {
@@ -11,7 +12,7 @@ export const SpendCards = () => {
         <View key={index} style={styles.card}>
           <Text>{spend.name}</Text>
           <Text>{`R$ ${spend.value}`}</Text>
-          <Text>{spend.date}</Text>
+          <Text>{moment(spend.date).format('DD/MM/YYYY')}</Text>
         </View>
       ))}
     </ScrollView>

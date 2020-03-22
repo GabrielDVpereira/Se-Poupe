@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { SpendContext } from '../contexts/SpendContext';
 
-export default function SummaryScreen() {
-  const { spends } = useContext(SpendContext);
+export default function SignUpScreen() {
   return (
     <View style={styles.container}>
-      <Text>Summary Details Screen!!</Text>
+      <Text>Sign up Screen</Text>
     </View>
   );
 }

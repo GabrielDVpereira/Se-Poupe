@@ -16,7 +16,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     acctualMonth();
     totalSpend();
-  }, []);
+  }, [spends]);
 
   function showModal(show) {
     setNewSpendModal(show);
@@ -29,6 +29,7 @@ export default function HomeScreen({ navigation }) {
   }
   function totalSpend() {
     const totalValue = spends.reduce((total, spend) => total + spend.value, 0);
+
     setTotal(totalValue);
   }
 

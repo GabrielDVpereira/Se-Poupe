@@ -1,12 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Routes } from './src/Routes';
-import HomeScreen from './src/screens/HomeScreen';
+import { AuthContextProvider } from './src/contexts/AuthContext';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Routes />
+      <AuthContextProvider>
+        <Routes />
+      </AuthContextProvider>
     </View>
   );
 }
