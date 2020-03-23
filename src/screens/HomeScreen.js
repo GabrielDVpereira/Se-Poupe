@@ -2,13 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import SpendModal from '../components/spendModal';
+import SpendModal from '../components/modals/spendModal';
+import OrderModal from '../components/modals/orderModal';
 import { SpendCards } from '../components/spendCards';
 import months from '../utils/months';
 import { SpendContext } from '../contexts/SpendContext';
 
 export default function HomeScreen({ navigation }) {
   const [newSpendModal, setNewSpendModal] = useState(false);
+  const [orderModal, setOrderModal] = useState(false);
   const [totalSpent, setTotal] = useState(0);
   const [month, setMonth] = useState('');
   const { spends } = useContext(SpendContext);
@@ -18,8 +20,11 @@ export default function HomeScreen({ navigation }) {
     totalSpend();
   }, [spends]);
 
-  function showModal(show) {
+  function showNewSpendModal(show) {
     setNewSpendModal(show);
+  }
+  function showOrderModal(show) {
+    setOrderModal(show);
   }
 
   function acctualMonth() {
@@ -60,14 +65,18 @@ export default function HomeScreen({ navigation }) {
           >
             <MaterialIcons name="add-box" size={32} color="#fff" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.order}>
+          <TouchableOpacity
+            style={styles.order}
+            onPress={() => showOrderModal(true)}
+          >
             <Text style={[styles.text, { fontSize: 16 }]}>Ordenar</Text>
             <Entypo name="triangle-down" size={32} color="#fff" />
           </TouchableOpacity>
         </View>
         <SpendCards />
       </View>
-      <SpendModal modalVisible={newSpendModal} showModal={showModal} />
+      <OrderModal modalVisible={orderModal} showModal={showOrderModal} />
+      <SpendModal modalVisible={newSpendModal} showModal={showNewSpendModal} />
     </LinearGradient>
   );
 }

@@ -5,7 +5,6 @@ import { SpendContext } from '../contexts/SpendContext';
 
 export const SpendCards = () => {
   const { spends } = useContext(SpendContext);
-
   return (
     <ScrollView style={styles.contentBody}>
       {spends.map((spend, index) => (

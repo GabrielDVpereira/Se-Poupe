@@ -106,7 +106,6 @@ const MainRoutes = () => {
 
 export const Routes = () => {
   const { authInfo } = useContext(AuthContext);
-  console.log('ROUTES', authInfo);
   return authInfo.userToken ? (
     <MainRoutes />
   ) : (

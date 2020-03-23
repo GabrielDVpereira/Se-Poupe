@@ -6,27 +6,27 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Alert,
 } from 'react-native';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import moment from 'moment';
-import DatePicker from './DatePicker';
-import { api } from '../config/api/axios';
-import { SpendContext } from '../contexts/SpendContext';
+import DatePicker from '../DatePicker';
+import { api } from '../../config/api/axios';
+import { SpendContext } from '../../contexts/SpendContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function spendModal({ modalVisible, showModal }) {
   const { dispatch } = useContext(SpendContext);
+  const { authInfo } = useContext(AuthContext);
 
   const [spendingName, setSpendingName] = useState('');
   const [spendingValue, setSpendingValue] = useState('');
   const [spendingLocal, setSpendingLocal] = useState('');
   const [spendingDate, setSpendingDate] = useState(
-    moment().format('DD/MM/YYYY')
+    moment().format('YYYY/MM/DD')
   );
   const [spendCategory, setSpendingCategory] = useState('');
   const [showDate, setShowDatePicker] = useState(false);
-
   const showDatePicker = (show, date) => {
     setShowDatePicker(show);
     setSpendingDate(date);
@@ -37,14 +37,18 @@ export default function spendModal({ modalVisible, showModal }) {
       name: spendingName,
       value: spendingValue,
       local: spendingLocal,
-      date: spendingDate,
+      date: moment(spendingDate).format('MM/DD/YYYY'),
       category: spendCategory,
     };
 
     try {
-      const request = await api.post('/spend', spendData);
+      const request = await api.post('/spend', spendData, {
+        headers: {
+          'x-auth-token': authInfo.userToken,
+        },
+      });
       if (request.status === 200) {
-        dispatch({ type: 'ADD_SPEND', spend: request.data.response });
+        dispatch({ type: 'ADD_SPEND', spend: request.data.spend });
         showModal(false);
         Alert.alert('Success', 'Spend successfully created!', [
           { text: 'OK', onPress: () => {} },
@@ -68,7 +72,9 @@ export default function spendModal({ modalVisible, showModal }) {
                 showDatePicker(true);
               }}
             >
-              <Text style={{ paddingRight: 10 }}>{spendingDate}</Text>
+              <Text style={{ paddingRight: 10 }}>
+                {moment(spendingDate).format('DD/MM/YYYY')}
+              </Text>
               <Entypo name="calendar" size={20} color="#000" />
               <DatePicker show={showDate} showDatePicker={showDatePicker} />
             </TouchableOpacity>

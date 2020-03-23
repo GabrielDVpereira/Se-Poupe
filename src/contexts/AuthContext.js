@@ -48,7 +48,6 @@ export function AuthContextProvider(props) {
         dispatch({ type: 'SIGN_OUT' });
       }, 3000);
       await AsyncStorage.removeItem('token');
-      // remove token from async storage
     },
     async signUp(userCredentials) {
       // regsiter route
