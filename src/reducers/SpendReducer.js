@@ -5,6 +5,6 @@ export const spendReducer = (state, action) => {
     case 'ORDER':
       return action.spendOrderd;
     default:
-      return action.spend;
+      return action.spends;
   }
 };

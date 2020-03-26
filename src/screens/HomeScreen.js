@@ -95,15 +95,18 @@ const styles = StyleSheet.create({
   },
   header: {
     alignSelf: 'center',
-    top: 100,
+    top: 50,
   },
   content: {
-    top: 100,
     flex: 1,
+    marginVertical: 10,
+    marginTop: 30,
   },
   contentTop: {
     flexDirection: 'row',
-    margin: 50,
+    marginHorizontal: 50,
+    marginTop: 70,
+    bottom: 20,
     justifyContent: 'space-between',
   },
   textMes: {

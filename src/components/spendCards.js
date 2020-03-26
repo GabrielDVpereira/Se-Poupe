@@ -7,13 +7,19 @@ export const SpendCards = () => {
   const { spends } = useContext(SpendContext);
   return (
     <ScrollView style={styles.contentBody}>
-      {spends.map((spend, index) => (
-        <View key={index} style={styles.card}>
-          <Text>{spend.name}</Text>
-          <Text>{`R$ ${spend.value}`}</Text>
-          <Text>{moment(spend.date).format('DD/MM/YYYY')}</Text>
-        </View>
-      ))}
+      {spends.map((spend, index) => {
+        console.log(`-------${index}-------`);
+        console.log(spend);
+
+        console.log('--------------');
+        return (
+          <View key={index} style={styles.card}>
+            <Text>{spend.name}</Text>
+            <Text>{`R$ ${spend.value} ${index}`}</Text>
+            <Text>{moment(spend.date).format('DD/MM/YYYY')}</Text>
+          </View>
+        );
+      })}
     </ScrollView>
   );
 };
@@ -22,8 +28,9 @@ const styles = StyleSheet.create({
   contentBody: {
     marginHorizontal: 10,
   },
+
   card: {
-    marginTop: 20,
+    marginTop: 15,
     backgroundColor: '#fff',
     width: '100%',
     height: 100,

@@ -21,7 +21,7 @@ function orderByValueDesc(spends) {
   return spends.sort((spend1, spend2) => spend2.value - spend1.value);
 }
 function orderByDataAsc(spends) {
-  return spends.sort((spend1, spend2) => {
+  const spendsByData = spends.sort((spend1, spend2) => {
     const date1 = {
       day: Number(moment(spend1.date).format('DD')),
       month: Number(moment(spend1.date).format('MM')),
@@ -46,4 +46,5 @@ function orderByDataAsc(spends) {
 
     return comparison;
   });
+  return spendsByData;
 }
