@@ -13,8 +13,6 @@ export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {});
-
   return (
     <View style={styles.container}>
       <Text>Sign in Screen</Text>

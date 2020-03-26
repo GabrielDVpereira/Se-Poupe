@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import { SpendContext } from '../../contexts/SpendContext';
+import orderSpends from '../../utils/order';
 
 export default function orderModal({ modalVisible, showModal }) {
   const { spends, dispatch } = useContext(SpendContext);
 
-  function orderSpends(orderBy) {
+  function orderBy(orderRule) {
     // call the due compare function and dispatch the result
+    const spendOrderd = orderSpends(spends, orderRule);
+    dispatch({ type: 'ORDER', spendOrderd });
   }
   return (
     <Modal visible={modalVisible} transparent animationType="fade">
@@ -19,10 +22,10 @@ export default function orderModal({ modalVisible, showModal }) {
           <TouchableOpacity onPress={() => showModal(false)}>
             <Text>Categoria</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => showModal(false)}>
+          <TouchableOpacity onPress={() => orderBy('value-desc')}>
             <Text>Valor</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => showModal(false)}>
+          <TouchableOpacity onPress={() => orderBy('data-asc')}>
             <Text>Data</Text>
           </TouchableOpacity>
         </View>

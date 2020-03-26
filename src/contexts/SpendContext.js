@@ -18,7 +18,7 @@ export function SpendContextProvider(props) {
         });
         dispatch({ spend: spendResponse.data.response });
       } catch (error) {
-        console.error(error);
+        console.error(error.response.data);
       }
     }
     fetchSpends();

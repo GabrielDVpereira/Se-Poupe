@@ -30,16 +30,15 @@ export function AuthContextProvider(props) {
   const authAction = {
     async signIn(userCredentials) {
       try {
-        dispatch({ type: 'SPLASH' });
         const respose = await api.post('/user/auth', userCredentials);
         const token = respose.headers['x-auth-token'];
+        dispatch({ type: 'SPLASH' });
         setTimeout(() => {
-          dispatch({ type: 'SIGN_IN', token }); // wait 4 seconds for the splash and then renders the homepage
+          dispatch({ type: 'SIGN_IN', token }); // wait 3 seconds for the splash and then renders the homepage
         }, 3000);
-
         await AsyncStorage.setItem('token', token);
       } catch (error) {
-        console.error(error);
+        console.log(error.response.data.error);
       }
     },
     async signOut() {
