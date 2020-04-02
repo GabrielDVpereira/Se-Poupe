@@ -8,6 +8,8 @@ export default function compareAndOrder(spends, type) {
       return orderByValueAsc(spends);
     case 'data-asc':
       return orderByDataAsc(spends);
+    case 'data-des':
+      return orderByDataDesc(spends);
     default:
       return 'teste';
   }
@@ -43,6 +45,34 @@ function orderByDataAsc(spends) {
 
     if (date1.day > date2.day) comparison = 1;
     if (date1.day < date2.day) comparison = -1;
+
+    return comparison;
+  });
+  return spendsByData;
+}
+function orderByDataDesc(spends) {
+  const spendsByData = spends.sort((spend1, spend2) => {
+    const date1 = {
+      day: Number(moment(spend1.date).format('DD')),
+      month: Number(moment(spend1.date).format('MM')),
+      year: Number(moment(spend1.date).format('YYYY')),
+    };
+    const date2 = {
+      day: Number(moment(spend2.date).format('DD')),
+      month: Number(moment(spend2.date).format('MM')),
+      year: Number(moment(spend2.date).format('YYYY')),
+    };
+
+    let comparison = 0;
+
+    if (date1.year > date2.year) comparison = -1;
+    if (date1.year < date2.year) comparison = 1;
+
+    if (date1.month > date2.month) comparison = -1;
+    if (date1.month < date2.month) comparison = 1;
+
+    if (date1.day > date2.day) comparison = -1;
+    if (date1.day < date2.day) comparison = 1;
 
     return comparison;
   });

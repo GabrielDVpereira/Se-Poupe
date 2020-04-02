@@ -1,5 +1,12 @@
 import React, { useContext } from 'react';
-import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { SpendContext } from '../../contexts/SpendContext';
 import orderSpends from '../../utils/order';
 
@@ -18,17 +25,26 @@ export default function orderModal({ modalVisible, showModal }) {
         onPress={() => showModal(false)}
         activeOpacity={1}
       >
-        <View style={styles.content}>
-          <TouchableOpacity onPress={() => showModal(false)}>
-            <Text>Categoria</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => orderBy('value-desc')}>
-            <Text>Valor</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => orderBy('data-asc')}>
-            <Text>Data</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableWithoutFeedback>
+          <View style={styles.content}>
+            <TouchableOpacity
+              onPress={() => {
+                orderBy('value-desc');
+                showModal(false);
+              }}
+            >
+              <Text style={styles.text}>Valor</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                orderBy('data-asc');
+                showModal(false);
+              }}
+            >
+              <Text style={styles.text}>Data</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
       </TouchableOpacity>
     </Modal>
   );
@@ -38,13 +54,17 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: ' rgba(0, 0, 0, 0.3)',
+    backgroundColor: ' rgba(0, 0, 0, 0.5)',
   },
   content: {
-    width: 100,
-    height: 100,
+    width: 300,
     backgroundColor: '#fff',
     alignSelf: 'center',
     top: 300,
+    padding: 20,
+  },
+  text: {
+    fontSize: 15,
+    marginVertical: 5,
   },
 });

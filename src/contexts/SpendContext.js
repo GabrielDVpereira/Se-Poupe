@@ -12,13 +12,9 @@ export function SpendContextProvider(props) {
   useEffect(() => {
     async function fetchSpends() {
       try {
-        const currentMonth = moment().format('MM');
-        const spendResponse = await api.get('/spend', {
+        const spendResponse = await api.get('/spends', {
           headers: {
             'x-auth-token': authInfo.userToken,
-          },
-          params: {
-            currentMonth,
           },
         });
         dispatch({ spends: spendResponse.data.response });
