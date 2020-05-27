@@ -1,14 +1,15 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Picker } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Entypo } from '@expo/vector-icons';
 import moment from 'moment';
-import months from '../utils/months';
-import CategoryCard from '../components/categoryCard';
-import CategoryModal from '../components/modals/categoryModal';
-import { SpendContext } from '../contexts/SpendContext';
+import months from '../../../utils/months';
+import CategoryCard from '../../../components/categoryCard';
+import CategoryModal from '../../../components/modals/categoryModal';
+import { SpendContext } from '../../../contexts/SpendContext';
+import styles from './styles';
 
-export default function({ navigation }) {
+export default function Category({ navigation }) {
   const { spends } = useContext(SpendContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMonth, setMonth] = useState(
@@ -60,46 +61,3 @@ export default function({ navigation }) {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  drawerButton: {
-    top: 40,
-    left: 10,
-  },
-  content: {
-    alignItems: 'center',
-    top: 40,
-  },
-  contentTitle: {
-    color: '#fff',
-    fontSize: 25,
-    fontFamily: 'sans-serif-medium',
-  },
-  pickerContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-around',
-    top: 20,
-  },
-  pickerText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  month: {
-    backgroundColor: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    fontSize: 22,
-    padding: 8,
-    borderRadius: 5,
-    margin: 5,
-  },
-  picker: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});

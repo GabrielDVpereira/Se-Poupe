@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { AuthContext } from '../contexts/AuthContext';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { AuthContext } from '../../contexts/AuthContext';
+import styles from './styles';
 
 export default function SettingsScreen() {
   const { authAction } = useContext(AuthContext);
@@ -14,11 +15,3 @@ export default function SettingsScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

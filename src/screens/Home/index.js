@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import SpendModal from '../components/modals/spendModal';
-import OrderModal from '../components/modals/orderModal';
-import { SpendCards } from '../components/spendCards';
-import months from '../utils/months';
-import { SpendContext } from '../contexts/SpendContext';
+import SpendModal from '../../components/modals/spendModal';
+import OrderModal from '../../components/modals/orderModal';
+import { SpendCards } from '../../components/spendCards';
+import months from '../../utils/months';
+import { SpendContext } from '../../contexts/SpendContext';
+import styles from './styles';
 
 export default function HomeScreen({ navigation }) {
   const [newSpendModal, setNewSpendModal] = useState(false);
@@ -80,49 +81,3 @@ export default function HomeScreen({ navigation }) {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  text: {
-    color: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    fontSize: 22,
-  },
-  header: {
-    alignSelf: 'center',
-    top: 50,
-  },
-  content: {
-    flex: 1,
-    marginVertical: 10,
-    marginTop: 30,
-  },
-  contentTop: {
-    flexDirection: 'row',
-    marginHorizontal: 50,
-    marginTop: 70,
-    bottom: 20,
-    justifyContent: 'space-between',
-  },
-  textMes: {
-    backgroundColor: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    fontSize: 22,
-    padding: 8,
-    borderRadius: 5,
-    margin: 5,
-  },
-  order: {
-    flexDirection: 'row',
-  },
-  drawerButton: {
-    top: 40,
-    left: 10,
-  },
-});
