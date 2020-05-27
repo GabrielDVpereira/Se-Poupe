@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { SpendContext } from '../contexts/SpendContext';
+import { View, Text } from 'react-native';
+import { SpendContext } from '../../../contexts/SpendContext';
+import styles from './styles';
 
 export default function SummaryScreen() {
   const { spends } = useContext(SpendContext);
@@ -10,11 +11,3 @@ export default function SummaryScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
