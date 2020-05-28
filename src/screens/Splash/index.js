@@ -4,13 +4,10 @@ import { View } from 'react-native';
 import styles from './styles';
 
 export default function SplashScreen() {
+  const slashAnimation = require('../../assets/envelope.json');
   return (
     <View style={styles.container}>
-      <LottieView
-        source={require('../../assets/envelope.json')}
-        autoPlay
-        loop
-      />
+      <LottieView source={slashAnimation} autoPlay loop />
     </View>
   );
 }

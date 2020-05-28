@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import SpendModal from '../../components/modals/spendModal';
 import OrderModal from '../../components/modals/orderModal';
-import { SpendCards } from '../../components/spendCards';
+import Card from '../../components/Card';
 import months from '../../utils/months';
 import { SpendContext } from '../../contexts/SpendContext';
 import styles from './styles';
@@ -74,7 +74,11 @@ export default function HomeScreen({ navigation }) {
             <Entypo name="triangle-down" size={32} color="#fff" />
           </TouchableOpacity>
         </View>
-        <SpendCards />
+        <FlatList
+          data={spends}
+          keyExtractor={spend => spend.id}
+          renderItem={({ item: spend }) => <Card spend={spend} />}
+        />
       </View>
       <OrderModal modalVisible={orderModal} showModal={showOrderModal} />
       <SpendModal modalVisible={newSpendModal} showModal={showNewSpendModal} />
