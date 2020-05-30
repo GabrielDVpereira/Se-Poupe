@@ -1,14 +1,13 @@
 import React, { createContext, useReducer, useEffect, useContext } from 'react';
-import moment from 'moment';
 import { spendReducer } from '../reducers/SpendReducer';
 import { api } from '../config/api/axios';
-import { AuthContext } from './AuthContext';
+import { useAuthContext } from './AuthContext';
 
-export const SpendContext = createContext();
+const SpendContext = createContext();
 
-export function SpendContextProvider(props) {
+export function SpendContextProvider({ children }) {
   const [spends, dispatch] = useReducer(spendReducer, []);
-  const { authInfo } = useContext(AuthContext);
+  const { authInfo } = useAuthContext();
   useEffect(() => {
     async function fetchSpends() {
       try {
@@ -26,7 +25,9 @@ export function SpendContextProvider(props) {
   }, []);
   return (
     <SpendContext.Provider value={{ spends, dispatch }}>
-      {props.children}
+      {children}
     </SpendContext.Provider>
   );
 }
+
+export const useSpendContext = useContext(SpendContext);

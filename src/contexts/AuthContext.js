@@ -1,9 +1,9 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { AsyncStorage } from 'react-native';
 import AuthReducer from '../reducers/AuthReducer';
 import { api } from '../config/api/axios';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export function AuthContextProvider(props) {
   const [authInfo, dispatch] = useReducer(AuthReducer, {
@@ -59,3 +59,5 @@ export function AuthContextProvider(props) {
     </AuthContext.Provider>
   );
 }
+
+export const useAuthContext = useContext(AuthContext);

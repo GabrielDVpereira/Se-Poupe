@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -15,12 +15,12 @@ import moment from 'moment';
 import categories from '../../utils/categories';
 import DatePicker from '../DatePicker';
 import { api } from '../../config/api/axios';
-import { SpendContext } from '../../contexts/SpendContext';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useSpendContext } from '../../contexts/SpendContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function spendModal({ modalVisible, showModal }) {
-  const { dispatch } = useContext(SpendContext);
-  const { authInfo } = useContext(AuthContext);
+  const { dispatch } = useSpendContext();
+  const { authInfo } = useAuthContext();
 
   const [spendingName, setSpendingName] = useState('');
   const [spendingValue, setSpendingValue] = useState('');

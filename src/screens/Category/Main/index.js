@@ -4,7 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Entypo } from '@expo/vector-icons';
 import moment from 'moment';
 import months from '../../../utils/months';
-import CategoryCard from '../../../components/categoryCard';
 import CategoryModal from '../../../components/modals/categoryModal';
 import { SpendContext } from '../../../contexts/SpendContext';
 import styles from './styles';
@@ -49,9 +48,7 @@ export default function Category({ navigation }) {
             <Entypo name="triangle-down" size={32} color="#fff" />
           </TouchableOpacity>
         </View>
-        <View>
-          <CategoryCard spends={spends} />
-        </View>
+
         <CategoryModal
           filterArray={filter}
           modalVisible={modalVisible}
