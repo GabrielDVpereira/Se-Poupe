@@ -4,7 +4,6 @@ import styles from './styles';
 import getFormatedValue from '../../utils/getFormatedValue';
 
 export default function Card({ spend }) {
-  console.log(spend);
   return (
     <View style={styles.card}>
       <Text>{spend.name}</Text>

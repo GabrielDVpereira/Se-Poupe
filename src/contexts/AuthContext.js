@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import { AsyncStorage } from 'react-native';
 import AuthReducer from '../reducers/AuthReducer';
 import { api } from '../config/api/axios';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
-export function AuthContextProvider(props) {
+export default function AuthContextProvider({ children }) {
   const [authInfo, dispatch] = useReducer(AuthReducer, {
     isLoading: true,
     isSignout: false,
@@ -55,9 +55,7 @@ export function AuthContextProvider(props) {
   };
   return (
     <AuthContext.Provider value={{ authInfo, authAction }}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 }
-
-export const useAuthContext = useContext(AuthContext);

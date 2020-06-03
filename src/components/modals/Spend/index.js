@@ -107,9 +107,7 @@ export default function spendModal({ modalVisible, showModal }) {
                   mode="dialog"
                   selectedValue={spendCategory}
                   style={{ height: 50, width: 150 }}
-                  onValueChange={(category, itemIndex) =>
-                    setSpendingCategory(category)
-                  }
+                  onValueChange={category => setSpendingCategory(category)}
                 >
                   {categories.map(category => (
                     <Picker.Item

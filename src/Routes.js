@@ -9,7 +9,7 @@ import CategoryDetailsScreen from './screens/Category/Details';
 import SettingsScreen from './screens/Settings';
 import SummaryScreen from './screens/Summary/Main';
 import SummaryDetailsScreen from './screens/Summary/Details';
-import { SpendContextProvider } from './contexts/SpendContext';
+import SpendContextProvider from './contexts/SpendContext';
 import SignInScreen from './screens/Auth/SignIn';
 import SignUpScreen from './screens/Auth/SignUp';
 import { AuthContext } from './contexts/AuthContext';

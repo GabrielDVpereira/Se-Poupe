@@ -1,21 +1,15 @@
-import React, { createContext, useReducer, useEffect, useContext } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import { spendReducer } from '../reducers/SpendReducer';
 import { api } from '../config/api/axios';
-import { useAuthContext } from './AuthContext';
 
-const SpendContext = createContext();
+export const SpendContext = createContext();
 
-export function SpendContextProvider({ children }) {
+export default function SpendContextProvider({ children }) {
   const [spends, dispatch] = useReducer(spendReducer, []);
-  const { authInfo } = useAuthContext();
   useEffect(() => {
     async function fetchSpends() {
       try {
-        const spendResponse = await api.get('/spends', {
-          headers: {
-            'x-auth-token': authInfo.userToken,
-          },
-        });
+        const spendResponse = await api.get('/spends');
         dispatch({ spends: spendResponse.data.response });
       } catch (error) {
         console.error(error.response.data);
@@ -29,5 +23,3 @@ export function SpendContextProvider({ children }) {
     </SpendContext.Provider>
   );
 }
-
-export const useSpendContext = useContext(SpendContext);

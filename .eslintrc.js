@@ -26,6 +26,14 @@ module.exports = {
         extensions: ['.jsx', '.js'],
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: false,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
     'import/prefer-default-export': 'off',
     'react/state-in-constructor': 'off',
     'react/static-property-placement': 'off',

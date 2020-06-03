@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { useSpendContext } from '../../contexts/SpendContext';
+import { SpendContext } from '../../contexts/SpendContext';
 import orderSpends from '../../utils/order';
 
 export default function orderModal({ modalVisible, showModal }) {
-  const { spends, dispatch } = useSpendContext();
+  const { spends, dispatch } = useContext(SpendContext);
 
   function orderBy(orderRule) {
     // call the due compare function and dispatch the result

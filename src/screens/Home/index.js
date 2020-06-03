@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import SpendModal from '../../components/modals/spendModal';
+import SpendModal from '../../components/modals/Spend';
 import OrderModal from '../../components/modals/orderModal';
 import Card from '../../components/Card';
 import months from '../../utils/months';

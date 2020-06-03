@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 export default function getFormatedValue(value, type) {
-  console.log(value);
   switch (type) {
     case 'money':
       return Intl.NumberFormat('pt-BR', {
