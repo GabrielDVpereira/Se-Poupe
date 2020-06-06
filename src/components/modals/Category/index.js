@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   View,
-  StyleSheet,
   Text,
   Modal,
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
+import styles from './styles';
 
 export default function CategoryModal({
   filterArray,
@@ -24,8 +24,8 @@ export default function CategoryModal({
       >
         <TouchableWithoutFeedback>
           <View style={styles.content}>
-            {filterArray.map((filterItem, index) => (
-              <TouchableOpacity key={index}>
+            {filterArray.map(filterItem => (
+              <TouchableOpacity key={Math.random()}>
                 <Text>{filterItem}</Text>
               </TouchableOpacity>
             ))}
@@ -35,20 +35,3 @@ export default function CategoryModal({
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  content: {
-    width: 100,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    alignSelf: 'center',
-    marginTop: 200,
-  },
-});

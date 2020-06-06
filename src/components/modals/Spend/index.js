@@ -63,6 +63,7 @@ export default function spendModal({ modalVisible, showModal }) {
         onPress={() => {
           showModal(false);
         }}
+        activeOpacity={1}
       >
         <TouchableWithoutFeedback>
           <View behavior="position" style={styles.modalContainer}>

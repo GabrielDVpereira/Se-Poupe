@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Entypo } from '@expo/vector-icons';
 import moment from 'moment';
 import months from '../../../utils/months';
-import CategoryModal from '../../../components/modals/categoryModal';
+import CategoryModal from '../../../components/modals/Category';
 import { SpendContext } from '../../../contexts/SpendContext';
 import styles from './styles';
 

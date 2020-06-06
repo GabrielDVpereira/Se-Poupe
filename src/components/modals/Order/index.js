@@ -3,12 +3,12 @@ import {
   View,
   Text,
   Modal,
-  StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { SpendContext } from '../../contexts/SpendContext';
-import orderSpends from '../../utils/order';
+import { SpendContext } from '../../../contexts/SpendContext';
+import orderSpends from '../../../utils/order';
+import styles from './styles';
 
 export default function orderModal({ modalVisible, showModal }) {
   const { spends, dispatch } = useContext(SpendContext);
@@ -49,22 +49,3 @@ export default function orderModal({ modalVisible, showModal }) {
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: ' rgba(0, 0, 0, 0.5)',
-  },
-  content: {
-    width: 300,
-    backgroundColor: '#fff',
-    alignSelf: 'center',
-    top: 300,
-    padding: 20,
-  },
-  text: {
-    fontSize: 15,
-    marginVertical: 5,
-  },
-});

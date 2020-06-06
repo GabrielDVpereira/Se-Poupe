@@ -3,35 +3,26 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import SpendModal from '../../components/modals/Spend';
-import OrderModal from '../../components/modals/orderModal';
+import OrderModal from '../../components/modals/Order';
 import Card from '../../components/Card';
 import months from '../../utils/months';
 import { SpendContext } from '../../contexts/SpendContext';
 import styles from './styles';
 
 export default function HomeScreen({ navigation }) {
-  const [newSpendModal, setNewSpendModal] = useState(false);
-  const [orderModal, setOrderModal] = useState(false);
+  const [newSpendModalVisible, setNewSpendModalVisible] = useState(false);
+  const [orderModalVisible, setOrderModalVisible] = useState(false);
   const [totalSpent, setTotal] = useState(0);
-  const [month, setMonth] = useState('');
   const { spends } = useContext(SpendContext);
 
   useEffect(() => {
-    acctualMonth();
     totalSpend();
   }, [spends]);
 
-  function showNewSpendModal(show) {
-    setNewSpendModal(show);
-  }
-  function showOrderModal(show) {
-    setOrderModal(show);
-  }
-
-  function acctualMonth() {
+  function currentMonth() {
     const date = new Date();
-    const monthIndex = date.getMonth();
-    setMonth(months[monthIndex]);
+    const currentMonthIndex = date.getMonth();
+    return months[currentMonthIndex];
   }
   function totalSpend() {
     const totalValue = spends.reduce((total, spend) => total + spend.value, 0);
@@ -54,21 +45,21 @@ export default function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <View style={styles.header}>
-        <Text style={styles.textMes}>{month}</Text>
+        <Text style={styles.textMes}>{currentMonth()}</Text>
         <Text style={styles.text}>Você gastou R$ {totalSpent}</Text>
       </View>
       <View style={styles.content}>
         <View style={styles.contentTop}>
           <TouchableOpacity
             onPress={() => {
-              setNewSpendModal(true);
+              setNewSpendModalVisible(true);
             }}
           >
             <MaterialIcons name="add-box" size={32} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.order}
-            onPress={() => showOrderModal(true)}
+            onPress={() => setOrderModalVisible(true)}
           >
             <Text style={[styles.text, { fontSize: 16 }]}>Ordenar</Text>
             <Entypo name="triangle-down" size={32} color="#fff" />
@@ -80,8 +71,14 @@ export default function HomeScreen({ navigation }) {
           renderItem={({ item: spend }) => <Card spend={spend} />}
         />
       </View>
-      <OrderModal modalVisible={orderModal} showModal={showOrderModal} />
-      <SpendModal modalVisible={newSpendModal} showModal={showNewSpendModal} />
+      <OrderModal
+        modalVisible={orderModalVisible}
+        showModal={setOrderModalVisible}
+      />
+      <SpendModal
+        modalVisible={newSpendModalVisible}
+        showModal={setNewSpendModalVisible}
+      />
     </LinearGradient>
   );
 }
