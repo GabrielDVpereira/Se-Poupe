@@ -20,10 +20,9 @@ export const Header = styled.View`
   width: 100%;
   height: 200px;
   background-color: #1c3fa5;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
   z-index: 2;
 `;
@@ -31,12 +30,25 @@ export const Header = styled.View`
 export const NavigationIcon = styled.TouchableOpacity`
   margin-top: 40px;
   left: 20px;
+  position: absolute;
+  z-index: 3;
 `;
 export const FilterIcon = styled.TouchableOpacity`
   margin-top: 40px;
   right: 20px;
+  position: absolute;
+  z-index: 3;
 `;
 
+export const AppName = styled.Text`
+  margin-top: 40px;
+  font-size: 20px;
+  color: #fff;
+  font-family: 'Montserrat_600SemiBold';
+  align-self: center;
+  position: absolute;
+  z-index: 3;
+`;
 export const Title = styled.Text`
   margin-top: 40px;
   font-size: 20px;
@@ -83,12 +95,6 @@ export const ContentTitle = styled.Text`
   font-size: 20px;
 `;
 
-export const ContentHeader = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 15px 20px 10px 20px;
-`;
 export const NewItemButton = styled.TouchableOpacity`
   position: absolute;
   z-index: 3;
