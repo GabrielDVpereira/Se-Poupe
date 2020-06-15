@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
-import { SimpleLineIcons, FontAwesome, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { Animated } from 'react-native';
-import {
-  Container,
-  NavigationIcon,
-  Content,
-  FilterIcon,
-  NewItemButton,
-  AppName,
-} from './styles';
+import { Container, Content, NewItemButton } from './styles';
 import Card from '../../components/Card';
 import HomeHeader from '../../components/HomeHeader';
+import NewItemModal from '../../components/modals/NewItem';
 
 const scrollOffsetY = new Animated.Value(0);
 const headerOffset = Animated.diffClamp(scrollOffsetY, 0, 250);
 
-const AnimatedAppName = Animated.createAnimatedComponent(AppName);
-
 export default function HomeScreen({ navigation }) {
+  const [newItemModalVisible, setNewItemModalVisible] = useState(false);
+
   const items = [
     {
       name: 'Led Tv',
@@ -76,23 +70,6 @@ export default function HomeScreen({ navigation }) {
   ];
   return (
     <Container>
-      <NavigationIcon onPress={() => navigation.openDrawer()}>
-        <SimpleLineIcons name="menu" size={24} color="#fff" />
-      </NavigationIcon>
-      <FilterIcon onPress={() => console.log('settings')}>
-        <FontAwesome name="filter" size={24} color="#fff" />
-      </FilterIcon>
-      <AnimatedAppName
-        style={{
-          opacity: headerOffset.interpolate({
-            inputRange: [100, 250],
-            outputRange: [0, 1],
-            extrapolate: 'clamp',
-          }),
-        }}
-      >
-        Se Poupe
-      </AnimatedAppName>
       <HomeHeader headerOffset={headerOffset} />
 
       <Content
@@ -104,9 +81,13 @@ export default function HomeScreen({ navigation }) {
           <Card spend={item} />
         ))}
       </Content>
-      <NewItemButton>
+      <NewItemButton onPress={() => setNewItemModalVisible(true)}>
         <AntDesign name="pluscircle" size={50} color="#26dd78" />
       </NewItemButton>
+      <NewItemModal
+        modalVisible={newItemModalVisible}
+        showModal={setNewItemModalVisible}
+      />
     </Container>
   );
 }

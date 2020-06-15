@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    backgroundColor: ' rgba(0, 0, 0, 0.6)',
+    backgroundColor: ' rgba(0, 0, 0, 0.3)',
+    zIndex: 4,
   },
   modalContainer: {
     width: 300,
