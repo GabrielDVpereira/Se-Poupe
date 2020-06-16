@@ -1,80 +1,39 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components';
 
-const styles = StyleSheet.create({
-  line: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    width: '100%',
-    top: 20,
-  },
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: ' rgba(0, 0, 0, 0.3)',
-    zIndex: 4,
-  },
-  modalContainer: {
-    width: 300,
-    backgroundColor: '#fff',
-    alignSelf: 'center',
-    top: 100,
-    elevation: 15,
-    position: 'absolute',
-  },
-  modalForm: {
-    padding: 20,
-    marginVertical: 10,
-  },
-  modaltTitle: {
-    alignSelf: 'center',
-    padding: 10,
-    fontSize: 20,
-    fontFamily: '',
-  },
-  input: {
-    top: 5,
-    marginVertical: 5,
-    borderBottomWidth: 1,
-    width: 200,
-  },
-  modalButtons: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    elevation: 10,
-  },
-  datePicker: {
-    marginVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  cancelButton: {
-    flex: 1,
-    backgroundColor: 'red',
-    width: '100%',
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  createButton: {
-    flex: 1,
-    backgroundColor: '#00008b',
-    width: '100%',
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  createText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  cancelText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  categoryPicker: {
-    top: 5,
-  },
-});
+export const Container = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  align-items: center;
+`;
 
-export default styles;
+export const ModalContent = styled.TouchableWithoutFeedback``;
+
+export const Content = styled.View`
+  background-color: #fff;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 30px;
+`;
+
+export const InputField = styled.TextInput.attrs({
+  placeholderTextColor: '#c5c5c5',
+})`
+  width: 250px;
+  background-color: #e5e5e5;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px 15px;
+  font-family: 'Montserrat_500Medium';
+`;
+
+export const Title = styled.Text`
+  font-family: 'Montserrat_600SemiBold';
+  font-size: 18px;
+`;
