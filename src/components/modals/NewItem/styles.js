@@ -12,6 +12,7 @@ export const Container = styled.TouchableOpacity.attrs({
 export const ModalContent = styled.TouchableWithoutFeedback``;
 
 export const Content = styled.View`
+  width: 90%;
   background-color: #fff;
   align-items: center;
   margin-top: 50px;
@@ -22,7 +23,8 @@ export const Content = styled.View`
 export const InputField = styled.TextInput.attrs({
   placeholderTextColor: '#c5c5c5',
 })`
-  width: 250px;
+  width: 80%;
+
   background-color: #e5e5e5;
   margin-left: 20px;
   margin-right: 20px;
@@ -33,7 +35,19 @@ export const InputField = styled.TextInput.attrs({
   font-family: 'Montserrat_500Medium';
 `;
 
+export const Form = styled.View`
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
 export const Title = styled.Text`
   font-family: 'Montserrat_600SemiBold';
   font-size: 18px;
+`;
+
+export const CloseButton = styled.TouchableOpacity`
+  position: absolute;
+  right: 20px;
+  top: 10px;
 `;
