@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import RNPickerSelect from 'react-native-picker-select';
+import Picker from '../../Picker';
+
 import {
   Container,
   ModalContent,
@@ -10,6 +11,7 @@ import {
   Title,
   Form,
   CloseButton,
+  PickerContainer,
 } from './styles';
 import Buttom from '../../Buttom';
 import categories from '../../../utils/categories';
@@ -35,38 +37,27 @@ export default function NewItem({ modalVisible, showModal }) {
       >
         <ModalContent>
           <Content>
-            <Title>New Item</Title>
+            <Title>Novo item</Title>
             <CloseButton onPress={() => showModal(false)}>
               <AntDesign name="closecircle" size={35} color="#D71E1E" />
             </CloseButton>
             <Form>
-              <InputField placeholder="Name" />
-              <InputField placeholder="Price" />
+              <InputField placeholder="Nome" />
+              <InputField placeholder="Preço" />
               <InputField
                 maxLength={10}
-                placeholder="Date"
+                placeholder="Data"
                 value={itemDate}
                 onChangeText={date => setItemDate(date)}
                 onKeyPress={({ nativeEvent }) => setKeyPressed(nativeEvent.key)}
               />
-              <RNPickerSelect
-                style={{
-                  inputAndroid: {
-                    backgroundColor: '#e5e5e5',
-                    width: '80%',
-                    alignSelf: 'center',
-                    borderRadius: 5,
-                    marginTop: 10,
-                    padding: 10,
-                  },
-                }}
-                onValueChange={value => setSelectedUf(value)}
-                items={categoryNames.map(category => ({
-                  label: category,
-                  value: category,
-                }))}
-                placeholder={{ label: 'Categoria' }}
-              />
+              <PickerContainer>
+                <Picker
+                  label="Categoria"
+                  items={categoryNames}
+                  onChange={item => console.log(item)}
+                />
+              </PickerContainer>
             </Form>
             <Buttom text="Adicionar" size="large" />
           </Content>

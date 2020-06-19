@@ -7,6 +7,7 @@ export const Container = styled.TouchableOpacity.attrs({
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   align-items: center;
+  z-index: 1;
 `;
 
 export const ModalContent = styled.TouchableWithoutFeedback``;
@@ -50,4 +51,9 @@ export const CloseButton = styled.TouchableOpacity`
   position: absolute;
   right: 20px;
   top: 10px;
+`;
+
+export const PickerContainer = styled.View`
+  margin-top: 20px;
+  width: 80%;
 `;
