@@ -9,6 +9,7 @@ export const Content = styled.ScrollView.attrs({
     paddingBottom: 10,
     paddingTop: 200,
   },
+  showsVerticalScrollIndicator: false,
 })`
   z-index: 1;
 `;
