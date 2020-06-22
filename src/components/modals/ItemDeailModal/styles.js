@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native';
 import { Dimensions } from 'react-native';
 
-const { height: screen_height } = Dimensions.get('window');
+const { height: screenHeight } = Dimensions.get('window');
 
 export const Conatainer = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
@@ -12,14 +12,13 @@ export const Conatainer = styled.TouchableOpacity.attrs({
 `;
 export const Content = styled.View`
   width: 100%;
-  height: ${screen_height * 0.6}px;
+  height: ${screenHeight * 0.65}px;
   background-color: #fff;
-  bottom: 0;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 20px 70px 20px;
   position: absolute;
 `;
 

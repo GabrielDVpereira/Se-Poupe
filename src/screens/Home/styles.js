@@ -1,5 +1,8 @@
 import styled from 'styled-components/native';
 
+export const RnContainer = styled.View`
+  background-color: #000;
+`;
 export const Container = styled.View`
   background-color: #fff;
   height: 100%;

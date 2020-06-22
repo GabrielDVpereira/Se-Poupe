@@ -19,20 +19,20 @@ import {
 } from './styles';
 import Button from '../../Buttom';
 
-const { height: screen_height } = Dimensions.get('window');
+const { height: screenHeight } = Dimensions.get('window');
 
 const AnimatedContent = Animated.createAnimatedComponent(Content);
-const translateModalY = new Animated.Value(screen_height * 0.6);
+const top = new Animated.Value(screenHeight * 0.6);
 
 export default function ItemModal({ item, visible, setVisible }) {
   useEffect(() => {
     if (visible) {
-      Animated.spring(translateModalY, {
-        toValue: 0,
+      Animated.spring(top, {
+        toValue: screenHeight - screenHeight * 0.6,
       }).start();
     } else {
-      Animated.timing(translateModalY, {
-        toValue: screen_height * 0.6,
+      Animated.timing(top, {
+        toValue: screenHeight,
         duration: 200,
       }).start();
     }
@@ -47,9 +47,7 @@ export default function ItemModal({ item, visible, setVisible }) {
     >
       <Conatainer onPress={() => setVisible(false)}>
         <TouchableWithoutFeedback>
-          <AnimatedContent
-            style={{ transform: [{ translateY: translateModalY }] }}
-          >
+          <AnimatedContent style={{ top }}>
             <Drawer>
               <DrawerLine />
             </Drawer>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { Animated, TouchableOpacity } from 'react-native';
-import { Container, Content, NewItemButton } from './styles';
+import { Animated, TouchableOpacity, View } from 'react-native';
+import { RnContainer, Container, Content, NewItemButton } from './styles';
 import Card from '../../components/Card';
 import HomeHeader from '../../components/HomeHeader';
 import NewItemModal from '../../components/modals/NewItem';
@@ -86,31 +86,33 @@ export default function HomeScreen({ navigation }) {
     },
   ];
   return (
-    <AnimatedContainer style={{ transform: [{ scale: containerScale }] }}>
-      <HomeHeader headerOffset={headerOffset} />
+    <RnContainer>
+      <AnimatedContainer style={{ transform: [{ scale: containerScale }] }}>
+        <HomeHeader headerOffset={headerOffset} />
 
-      <Content
-        onScroll={Animated.event([
-          { nativeEvent: { contentOffset: { y: scrollOffsetY } } },
-        ])}
-      >
-        {items.map(item => (
-          <TouchableOpacity onPress={() => setItemDetailModalVisible(true)}>
-            <Card spend={item} />
-          </TouchableOpacity>
-        ))}
-      </Content>
-      <NewItemButton onPress={() => setNewItemModalVisible(true)}>
-        <AntDesign name="pluscircle" size={50} color="#26dd78" />
-      </NewItemButton>
-      <NewItemModal
-        modalVisible={newItemModalVisible}
-        showModal={setNewItemModalVisible}
-      />
-      <ItemDeailModal
-        visible={itemDetailModalVisible}
-        setVisible={setItemDetailModalVisible}
-      />
-    </AnimatedContainer>
+        <Content
+          onScroll={Animated.event([
+            { nativeEvent: { contentOffset: { y: scrollOffsetY } } },
+          ])}
+        >
+          {items.map(item => (
+            <TouchableOpacity onPress={() => setItemDetailModalVisible(true)}>
+              <Card spend={item} />
+            </TouchableOpacity>
+          ))}
+        </Content>
+        <NewItemButton onPress={() => setNewItemModalVisible(true)}>
+          <AntDesign name="pluscircle" size={50} color="#26dd78" />
+        </NewItemButton>
+        <NewItemModal
+          modalVisible={newItemModalVisible}
+          showModal={setNewItemModalVisible}
+        />
+        <ItemDeailModal
+          visible={itemDetailModalVisible}
+          setVisible={setItemDetailModalVisible}
+        />
+      </AnimatedContainer>
+    </RnContainer>
   );
 }
