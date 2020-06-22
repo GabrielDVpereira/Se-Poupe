@@ -8,11 +8,12 @@ const Routes = () => {
   const { authInfo } = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {authInfo.userToken ? (
+      {/* {authInfo.userToken ? (
         <MainRoutes />
       ) : (
         <AuthRoutes isLoading={authInfo.isLoading} />
-      )}
+      )} */}
+      <MainRoutes />
     </NavigationContainer>
   );
 };

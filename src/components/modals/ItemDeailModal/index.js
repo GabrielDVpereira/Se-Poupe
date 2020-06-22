@@ -5,6 +5,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import {
   Conatainer,
   Content,
@@ -18,6 +19,7 @@ import {
   DrawerLine,
 } from './styles';
 import Button from '../../Buttom';
+import ConfirmationModal from '../ConfirmationModal';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -39,35 +41,41 @@ export default function ItemModal({ item, visible, setVisible }) {
   }, [visible]);
 
   return (
-    <Modal
-      transparent
-      animationType="fade"
-      visible={visible}
-      onRequestClose={() => setVisible(false)}
-    >
-      <Conatainer onPress={() => setVisible(false)}>
-        <TouchableWithoutFeedback>
-          <AnimatedContent style={{ top }}>
-            <Drawer>
-              <DrawerLine />
-            </Drawer>
-            <Title>LG ultraGrear</Title>
-            <Price>
-              <Name>Preço</Name>
-              <Value>R$ 720</Value>
-            </Price>
-            <Category>
-              <Name>Categoria</Name>
-              <Value>Eletronicos</Value>
-            </Category>
-            <Date>
-              <Name>Data</Name>
-              <Value>17/02/2020</Value>
-            </Date>
-            <Button type="danger" text="Remover item" />
-          </AnimatedContent>
-        </TouchableWithoutFeedback>
-      </Conatainer>
-    </Modal>
+    <>
+      <Modal
+        transparent
+        animationType="fade"
+        visible={visible}
+        onRequestClose={() => setVisible(false)}
+      >
+        <Conatainer onPress={() => setVisible(false)}>
+          <TouchableWithoutFeedback>
+            <AnimatedContent style={{ top }}>
+              <PanGestureHandler
+                onGestureEvent={({ nativeEvent }) => console.log(nativeEvent)}
+              >
+                <Drawer>
+                  <DrawerLine />
+                </Drawer>
+              </PanGestureHandler>
+              <Title>LG ultraGrear</Title>
+              <Price>
+                <Name>Preço</Name>
+                <Value>R$ 720</Value>
+              </Price>
+              <Category>
+                <Name>Categoria</Name>
+                <Value>Eletronicos</Value>
+              </Category>
+              <Date>
+                <Name>Data</Name>
+                <Value>17/02/2020</Value>
+              </Date>
+              <Button type="danger" text="Remover item" />
+            </AnimatedContent>
+          </TouchableWithoutFeedback>
+        </Conatainer>
+      </Modal>
+    </>
   );
 }

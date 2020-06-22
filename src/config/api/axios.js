@@ -10,7 +10,6 @@ export const api = axios.create({
 api.interceptors.request.use(
   async config => {
     const accessToken = await AsyncStorage.getItem('token');
-    console.log(accessToken);
     config.headers['x-auth-token'] = accessToken;
     return config;
   },
