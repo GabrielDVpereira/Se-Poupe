@@ -9,6 +9,8 @@ export const Conatainer = styled.TouchableOpacity.attrs({
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  z-index: 3;
 `;
 export const Content = styled.View`
   width: 100%;
@@ -20,6 +22,7 @@ export const Content = styled.View`
   justify-content: space-between;
   padding: 20px 20px 70px 20px;
   position: absolute;
+  z-index: 3;
 `;
 
 export const Title = styled.Text`
