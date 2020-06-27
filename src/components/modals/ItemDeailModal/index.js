@@ -43,21 +43,21 @@ export default function ItemModal({ item, visible, setVisible }) {
     };
   }
 
-  // useEffect(() => {
-  //   if (visible) {
-  //     SetContainerStyle(getContainerStyle());
-  //     Animated.spring(top, {
-  //       toValue: screenHeight - screenHeight * 0.6,
-  //     }).start();
-  //   } else {
-  //     Animated.timing(top, {
-  //       toValue: screenHeight,
-  //       duration: 200,
-  //     }).start(() => {
-  //       SetContainerStyle(getContainerStyle());
-  //     });
-  //   }
-  // }, [visible]);
+  useEffect(() => {
+    if (visible) {
+      SetContainerStyle(getContainerStyle());
+      Animated.spring(top, {
+        toValue: screenHeight - screenHeight * 0.6,
+      }).start();
+    } else {
+      Animated.timing(top, {
+        toValue: screenHeight,
+        duration: 200,
+      }).start(() => {
+        SetContainerStyle(getContainerStyle());
+      });
+    }
+  }, [visible]);
 
   return (
     <>
