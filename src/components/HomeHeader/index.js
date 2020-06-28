@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Animated } from 'react-native';
 import { SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -15,6 +15,7 @@ import {
   FilterIcon,
   AppName,
 } from './styles';
+import FilterModal from '../modals/FilterModal';
 
 const AnimatedHeader = Animated.createAnimatedComponent(Header);
 const AnimatedTotalContainer = Animated.createAnimatedComponent(TotalContainer);
@@ -22,12 +23,13 @@ const AnimatedAppName = Animated.createAnimatedComponent(AppName);
 
 export default function HomeHeader({ headerOffset }) {
   const navigation = useNavigation();
+  const [filterModalVisible, setFilterModalVisible] = useState(false);
   return (
     <>
       <NavigationIcon onPress={() => navigation.openDrawer()}>
         <SimpleLineIcons name="menu" size={24} color="#fff" />
       </NavigationIcon>
-      <FilterIcon onPress={() => console.log('settings')}>
+      <FilterIcon onPress={() => setFilterModalVisible(true)}>
         <FontAwesome name="filter" size={24} color="#fff" />
       </FilterIcon>
       <AnimatedAppName
@@ -82,6 +84,10 @@ export default function HomeHeader({ headerOffset }) {
           </SpendProgressBar>
         </AnimatedTotalContainer>
       </AnimatedHeader>
+      <FilterModal
+        visible={filterModalVisible}
+        setVisible={setFilterModalVisible}
+      />
     </>
   );
 }

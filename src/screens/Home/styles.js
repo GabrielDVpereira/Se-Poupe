@@ -19,7 +19,7 @@ export const Content = styled.ScrollView.attrs({
 
 export const NewItemButton = styled.TouchableOpacity`
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   bottom: 20px;
   right: 15px;
 `;

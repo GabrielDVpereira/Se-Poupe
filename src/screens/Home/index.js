@@ -15,19 +15,6 @@ const AnimatedContainer = Animated.createAnimatedComponent(Container);
 export default function HomeScreen({ navigation }) {
   const [newItemModalVisible, setNewItemModalVisible] = useState(false);
   const [itemDetailModalVisible, setItemDetailModalVisible] = useState(false);
-  useEffect(() => {
-    if (itemDetailModalVisible) {
-      Animated.timing(containerScale, {
-        toValue: 0.8,
-        duration: 200,
-      }).start();
-    } else {
-      Animated.timing(containerScale, {
-        toValue: 1,
-        duration: 200,
-      }).start();
-    }
-  }, [itemDetailModalVisible]);
 
   const items = [
     {
