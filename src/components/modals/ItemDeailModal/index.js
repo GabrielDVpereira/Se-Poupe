@@ -5,7 +5,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import {
   Conatainer,
   Content,
@@ -19,16 +19,17 @@ import {
   DrawerLine,
 } from './styles';
 import Button from '../../Buttom';
-import ConfirmationModal from '../ConfirmationModal';
 
 const { height: screenHeight } = Dimensions.get('window');
 
 const AnimatedContent = Animated.createAnimatedComponent(Content);
-const top = new Animated.Value(screenHeight * 0.6);
+const modalTopDistance = screenHeight - screenHeight * 0.6;
+const top = new Animated.Value(modalTopDistance);
 const translationY = new Animated.Value(0);
 
 export default function ItemModal({ item, visible, setVisible }) {
   const [containerStyle, SetContainerStyle] = useState();
+  const [offsetY, setOffsetY] = useState(0);
 
   function getContainerStyle() {
     if (visible) {
@@ -47,7 +48,7 @@ export default function ItemModal({ item, visible, setVisible }) {
     if (visible) {
       SetContainerStyle(getContainerStyle());
       Animated.spring(top, {
-        toValue: screenHeight - screenHeight * 0.6,
+        toValue: modalTopDistance,
       }).start();
     } else {
       Animated.timing(top, {
@@ -55,6 +56,7 @@ export default function ItemModal({ item, visible, setVisible }) {
         duration: 200,
       }).start(() => {
         SetContainerStyle(getContainerStyle());
+        translationY.setValue(0);
       });
     }
   }, [visible]);
@@ -65,17 +67,12 @@ export default function ItemModal({ item, visible, setVisible }) {
         <TouchableWithoutFeedback>
           <AnimatedContent
             style={{
+              top,
               transform: [
                 {
                   translateY: translationY.interpolate({
-                    inputRange: [0, screenHeight - screenHeight * 0.6],
-                    outputRange: [
-                      screenHeight - screenHeight * 0.6,
-                      screenHeight -
-                        screenHeight * 0.6 +
-                        screenHeight -
-                        screenHeight * 0.6,
-                    ],
+                    inputRange: [0, screenHeight],
+                    outputRange: [0, screenHeight],
                     extrapolate: 'clamp',
                   }),
                 },
@@ -83,12 +80,20 @@ export default function ItemModal({ item, visible, setVisible }) {
             }}
           >
             <PanGestureHandler
-              onGestureEvent={Animated.event([
-                {
-                  nativeEvent: { translationY },
-                },
-              ])}
-              // onGestureEvent={({ nativeEvent }) => console.log(nativeEvent)}
+              onGestureEvent={({ nativeEvent }) => {
+                translationY.setValue(nativeEvent.translationY + offsetY);
+              }}
+              onHandlerStateChange={({ nativeEvent }) => {
+                if (
+                  nativeEvent.oldState === State.ACTIVE &&
+                  nativeEvent.translationY > 30
+                ) {
+                  setVisible(false);
+                  setOffsetY(0);
+                } else {
+                  setOffsetY(nativeEvent.translationY + offsetY);
+                }
+              }}
             >
               <Drawer>
                 <DrawerLine />

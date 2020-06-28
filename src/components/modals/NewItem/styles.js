@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+import { Dimensions } from 'react-native';
 
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const modalMarginTop = SCREEN_HEIGHT * 0.2;
 export const Container = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
 })`
@@ -16,7 +19,7 @@ export const Content = styled.View`
   width: 90%;
   background-color: #fff;
   align-items: center;
-  margin-top: 50px;
+  margin-top: ${modalMarginTop}px;
   padding: 20px;
   border-radius: 30px;
 `;
