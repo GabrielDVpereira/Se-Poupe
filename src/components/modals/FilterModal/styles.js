@@ -34,3 +34,4 @@ export const PriceSelector = styled.View`
   position: absolute;
   border-radius: 20px;
 `;
+export const PriceRangeText = styled.Text``;

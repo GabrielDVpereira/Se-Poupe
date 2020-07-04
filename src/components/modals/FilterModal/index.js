@@ -12,6 +12,7 @@ import {
   PriceRangeSelected,
   PriceRange,
   PriceSelector,
+  PriceRangeText,
 } from './styles';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -22,25 +23,34 @@ const PriceRangeSelectorAnimated = Animated.createAnimatedComponent(
 const PriceRangeSelectedAnimated = Animated.createAnimatedComponent(
   PriceRangeSelected
 );
+const PriceRangeTextAnimated = Animated.createAnimatedComponent(PriceRangeText);
+
 export default function({ visible, setVisible }) {
   const [priceSelectorOffset, setPriceSelectorOffset] = useState(0);
-  const [priceRangeValue, setPriceRangeValue] = useState(0);
-
+  const [priceRangeValue, setpriceRangeValue] = useState(0);
   const translatePriceX = new Animated.Value(0);
-  translatePriceX.addListener(progress => {
-    setPriceRangeValue(progress.value);
-  });
 
+  translatePriceX.addListener(progress => {
+    setpriceRangeValue(Math.ceil(progress.value) * 16);
+  });
   function handleStateChanged({ nativeEvent }) {
-    console.log(nativeEvent);
     translatePriceX.setValue(nativeEvent.x);
     setPriceSelectorOffset(nativeEvent.x);
   }
   return (
     <ModalAnimated visible={visible} setVisible={setVisible}>
       <Title>Filtrar</Title>
-      <Animated.Text>{priceRangeValue}</Animated.Text>
       <PriceRange>
+        <PriceRangeTextAnimated
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: -5,
+            transform: [{ translateX: translatePriceX }],
+          }}
+        >
+          {priceRangeValue}
+        </PriceRangeTextAnimated>
         <TapGestureHandler onHandlerStateChange={handleStateChanged}>
           <PriceRangeNotSelected />
         </TapGestureHandler>
