@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import { Animated, Dimensions, Text } from 'react-native';
+import {
+  PanGestureHandler,
+  State,
+  TapGestureHandler,
+} from 'react-native-gesture-handler';
+import { Animated, Dimensions } from 'react-native';
 import ModalAnimated from '../ModalAnimated';
 import {
   Title,
@@ -26,13 +30,23 @@ export default function({ visible, setVisible }) {
   translatePriceX.addListener(progress => {
     setPriceRangeValue(progress.value);
   });
+
+  function handleStateChanged({ nativeEvent }) {
+    console.log(nativeEvent);
+    translatePriceX.setValue(nativeEvent.x);
+    setPriceSelectorOffset(nativeEvent.x);
+  }
   return (
     <ModalAnimated visible={visible} setVisible={setVisible}>
       <Title>Filtrar</Title>
       <Animated.Text>{priceRangeValue}</Animated.Text>
       <PriceRange>
-        <PriceRangeNotSelected />
-        <PriceRangeSelectedAnimated style={{ width: translatePriceX }} />
+        <TapGestureHandler onHandlerStateChange={handleStateChanged}>
+          <PriceRangeNotSelected />
+        </TapGestureHandler>
+        <TapGestureHandler onHandlerStateChange={handleStateChanged}>
+          <PriceRangeSelectedAnimated style={{ width: translatePriceX }} />
+        </TapGestureHandler>
         <PanGestureHandler
           onGestureEvent={({ nativeEvent }) => {
             if (
