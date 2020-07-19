@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import { Entypo } from '@expo/vector-icons';
+import { DatePickerContainer, Label } from './styles';
 
 export default function DatePicker({ onChange }) {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -10,30 +11,30 @@ export default function DatePicker({ onChange }) {
   console.log(datePickerVisible);
   useEffect(() => {
     onChange(selectedDate);
+    setDatePickerVisible(false);
   }, [selectedDate]);
 
   return (
-    <TouchableOpacity
+    <DatePickerContainer
       onPress={() => {
         setDatePickerVisible(true);
       }}
-      style={{ width: 100 }}
     >
-      <Text>{selectedDate || 'Data'}</Text>
+      <Label active={!!selectedDate}>{selectedDate || 'Data'}</Label>
       {datePickerVisible && (
         <DateTimePicker
           testID="dateTimePicker"
           timeZoneOffsetInMinutes={0}
-          value={new Date()}
+          value={(selectedDate && new Date(selectedDate)) || new Date()}
           mode="date"
           is24Hour
           display="calendar"
-          onChange={(event, selectedDate) => {
-            setSelectedDate(moment(selectedDate).format('DD/MM/YYYY'));
-            setDatePickerVisible(false);
+          onChange={(event, date) => {
+            setSelectedDate(moment(date).format('DD/MM/YYYY'));
           }}
         />
       )}
-    </TouchableOpacity>
+      <Entypo name="calendar" size={26} />
+    </DatePickerContainer>
   );
 }

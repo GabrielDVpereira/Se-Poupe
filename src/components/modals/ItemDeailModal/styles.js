@@ -1,5 +1,12 @@
 import styled, { css } from 'styled-components/native';
 
+export const Content = styled.View`
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Title = styled.Text`
   font-family: 'Montserrat_700Bold';
   font-size: 20px;

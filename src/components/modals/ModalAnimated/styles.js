@@ -19,7 +19,6 @@ export const Content = styled.View`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   align-items: center;
-  justify-content: space-between;
   padding: 20px 20px 70px 20px;
   position: absolute;
   z-index: 3;

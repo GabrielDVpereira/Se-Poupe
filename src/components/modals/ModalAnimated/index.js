@@ -32,11 +32,13 @@ export default function ItemModal({ children, visible, setVisible }) {
       SetContainerStyle(getContainerStyle());
       Animated.spring(top, {
         toValue: modalTopDistance,
+        useNativeDriver: false,
       }).start();
     } else {
       Animated.timing(top, {
         toValue: screenHeight,
         duration: 200,
+        useNativeDriver: false,
       }).start(() => {
         SetContainerStyle(getContainerStyle());
         translationY.setValue(0);

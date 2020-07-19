@@ -78,9 +78,10 @@ export default function HomeScreen({ navigation }) {
         <HomeHeader headerOffset={headerOffset} />
 
         <Content
-          onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { y: scrollOffsetY } } },
-          ])}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
+            { useNativeDriver: false }
+          )}
         >
           {items.map(item => (
             <TouchableOpacity onPress={() => setItemDetailModalVisible(true)}>
