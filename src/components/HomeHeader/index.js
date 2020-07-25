@@ -22,13 +22,13 @@ const AnimatedTotalContainer = Animated.createAnimatedComponent(TotalContainer);
 const AnimatedAppName = Animated.createAnimatedComponent(AppName);
 
 export default function HomeHeader({ headerOffset }) {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   return (
     <>
-      <NavigationIcon onPress={() => navigation.openDrawer()}>
+      {/* <NavigationIcon onPress={() => navigation.openDrawer()}>
         <SimpleLineIcons name="menu" size={24} color="#fff" />
-      </NavigationIcon>
+      </NavigationIcon> */}
       <FilterIcon onPress={() => setFilterModalVisible(true)}>
         <FontAwesome name="filter" size={24} color="#fff" />
       </FilterIcon>

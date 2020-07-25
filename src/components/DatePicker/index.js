@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import moment from 'moment';
 import { Entypo } from '@expo/vector-icons';
 import { DatePickerContainer, Label } from './styles';
+import getFormatedDateFromTimestamps from '../../utils/getFormatedDateFromTimestamps';
 
 export default function DatePicker({ onChange }) {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
@@ -30,7 +30,9 @@ export default function DatePicker({ onChange }) {
           is24Hour
           display="calendar"
           onChange={(event, date) => {
-            setSelectedDate(moment(date).format('DD/MM/YYYY'));
+            const formatedDate = getFormatedDateFromTimestamps(date);
+            console.log(formatedDate);
+            setSelectedDate(date);
           }}
         />
       )}
