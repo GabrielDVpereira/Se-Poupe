@@ -3,7 +3,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Entypo } from '@expo/vector-icons';
 import moment from 'moment';
 import { DatePickerContainer, Label } from './styles';
-import getFormatedDateFromTimestamps from '../../utils/getFormatedDateFromTimestamps';
 
 export default function DatePicker({ onChange }) {
   const [datePickerVisible, setDatePickerVisible] = useState(false);

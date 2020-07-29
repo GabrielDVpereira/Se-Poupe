@@ -1,6 +1,6 @@
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import React from 'react';
 import {
   useFonts,
