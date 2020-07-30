@@ -1,24 +1,35 @@
 import React, { createContext, useReducer, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 import { spendReducer } from '../reducers/SpendReducer';
-import { api } from '../config/api/axios';
+import ProductStorageService from '../services/AsyncStorage/Products';
 
 export const SpendContext = createContext();
 
 export default function SpendContextProvider({ children }) {
-  const [spends, dispatch] = useReducer(spendReducer, []);
-  useEffect(() => {
-    async function fetchSpends() {
-      try {
-        const spendResponse = await api.get('/spends');
-        dispatch({ spends: spendResponse.data.response });
-      } catch (error) {
-        console.error(error.response.data);
-      }
+  const [products, dispatch] = useReducer(spendReducer, []);
+
+  async function fetchProducts() {
+    const productsFromStorage = await ProductStorageService.getProducts();
+    if (productsFromStorage) {
+      dispatch({ products: productsFromStorage });
+    } else {
+      dispatch({ products: [] });
     }
-    fetchSpends();
+  }
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
+
+  const productStateManager = {
+    async addProduct(product) {
+      console.log(product);
+      await ProductStorageService.saveProduct(product);
+      dispatch({ products: [product, ...products] });
+    },
+  };
   return (
-    <SpendContext.Provider value={{ spends, dispatch }}>
+    <SpendContext.Provider value={{ products, productStateManager }}>
       {children}
     </SpendContext.Provider>
   );

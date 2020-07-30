@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Picker from '../../Picker';
@@ -15,19 +15,38 @@ import {
 } from './styles';
 import Buttom from '../../Buttom';
 import categories from '../../../utils/categories';
+import { SpendContext } from '../../../contexts/SpendContext';
 
 const categoryNames = Object.keys(categories);
 
 export default function NewItem({ modalVisible, showModal }) {
-  const [itemDate, setItemDate] = useState('');
   const [keyPressed, setKeyPressed] = useState('');
+  const [productDate, setProductDate] = useState('');
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState('');
+  const [productCategory, setProductCategory] = useState('');
+
+  const { productStateManager } = useContext(SpendContext);
+  const hideModal = () => showModal(false);
 
   useEffect(() => {
-    if (itemDate.length === 2 && keyPressed !== 'Backspace')
-      setItemDate(itemDate.concat('/'));
-    if (itemDate.length === 5 && keyPressed !== 'Backspace')
-      setItemDate(itemDate.concat('/'));
-  }, [itemDate]);
+    if (productDate.length === 2 && keyPressed !== 'Backspace')
+      setProductDate(productDate.concat('/'));
+    if (productDate.length === 5 && keyPressed !== 'Backspace')
+      setProductDate(productDate.concat('/'));
+  }, [productDate]);
+
+  function saveProduct() {
+    const product = {
+      category: productCategory,
+      date: productDate,
+      name: productName,
+      price: productPrice,
+    };
+    productStateManager.addProduct(product);
+    hideModal();
+  }
+
   return (
     <Modal visible={modalVisible} transparent animationType="fade">
       <Container
@@ -42,24 +61,30 @@ export default function NewItem({ modalVisible, showModal }) {
               <AntDesign name="closecircle" size={35} color="#D71E1E" />
             </CloseButton>
             <Form>
-              <InputField placeholder="Nome" />
-              <InputField placeholder="Preço" />
+              <InputField
+                placeholder="Nome"
+                onChangeText={name => setProductName(name)}
+              />
+              <InputField
+                placeholder="Preço"
+                onChangeText={price => setProductPrice(price)}
+              />
               <InputField
                 maxLength={10}
                 placeholder="Data"
-                value={itemDate}
-                onChangeText={date => setItemDate(date)}
+                value={productDate}
+                onChangeText={date => setProductDate(date)}
                 onKeyPress={({ nativeEvent }) => setKeyPressed(nativeEvent.key)}
               />
               <PickerContainer>
                 <Picker
                   label="Categoria"
                   items={categoryNames}
-                  onChange={item => console.log(item)}
+                  onChange={item => setProductCategory(item)}
                 />
               </PickerContainer>
             </Form>
-            <Buttom text="Adicionar" size="large" />
+            <Buttom text="Adicionar" size="large" onPress={saveProduct} />
           </Content>
         </ModalContent>
       </Container>

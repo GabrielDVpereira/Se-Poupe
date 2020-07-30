@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { Animated, TouchableOpacity, View } from 'react-native';
+import { Animated, TouchableOpacity } from 'react-native';
 import { RnContainer, Container, Content, NewItemButton } from './styles';
 import Card from '../../components/Card';
 import HomeHeader from '../../components/HomeHeader';
 import NewItemModal from '../../components/modals/NewItem';
 import ItemDeailModal from '../../components/modals/ItemDeailModal';
+import { SpendContext } from '../../contexts/SpendContext';
 
 const scrollOffsetY = new Animated.Value(0);
 const headerOffset = Animated.diffClamp(scrollOffsetY, 0, 250);
@@ -15,63 +16,26 @@ const AnimatedContainer = Animated.createAnimatedComponent(Container);
 export default function HomeScreen({ navigation }) {
   const [newItemModalVisible, setNewItemModalVisible] = useState(false);
   const [itemDetailModalVisible, setItemDetailModalVisible] = useState(false);
+  const [productSelected, setProductSelected] = useState(null);
+  const { products } = useContext(SpendContext);
 
-  const items = [
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Mercado',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Mercado',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-    {
-      name: 'Led Tv',
-      price: '100',
-      data: '17/02/1999',
-      category: 'Compras',
-    },
-  ];
+  function showProductDetailModal(product) {
+    setProductSelected(product);
+    setItemDetailModalVisible(true);
+  }
+
+  function renderItemDetailModal() {
+    if (productSelected) {
+      return (
+        <ItemDeailModal
+          product={productSelected}
+          visible={itemDetailModalVisible}
+          setVisible={setItemDetailModalVisible}
+        />
+      );
+    }
+  }
+
   return (
     <RnContainer>
       <AnimatedContainer style={{ transform: [{ scale: containerScale }] }}>
@@ -83,9 +47,9 @@ export default function HomeScreen({ navigation }) {
             { useNativeDriver: false }
           )}
         >
-          {items.map(item => (
-            <TouchableOpacity onPress={() => setItemDetailModalVisible(true)}>
-              <Card spend={item} />
+          {products.map(product => (
+            <TouchableOpacity onPress={() => showProductDetailModal(product)}>
+              <Card spend={product} />
             </TouchableOpacity>
           ))}
         </Content>
@@ -96,10 +60,7 @@ export default function HomeScreen({ navigation }) {
           modalVisible={newItemModalVisible}
           showModal={setNewItemModalVisible}
         />
-        <ItemDeailModal
-          visible={itemDetailModalVisible}
-          setVisible={setItemDetailModalVisible}
-        />
+        {renderItemDetailModal()}
       </AnimatedContainer>
     </RnContainer>
   );
