@@ -21,6 +21,7 @@ export default function App() {
   if (!fontsLoaded) return <View />;
   return (
     <AuthContextProvider>
+      <StatusBar hidden />
       <Routes />
     </AuthContextProvider>
   );

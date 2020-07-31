@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Dimensions } from 'react-native';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-const modalMarginTop = SCREEN_HEIGHT * 0.2;
+const modalMarginTop = SCREEN_HEIGHT * 0.15;
 export const Container = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
 })`

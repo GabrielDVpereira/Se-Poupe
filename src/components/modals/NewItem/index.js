@@ -16,6 +16,7 @@ import {
 import Buttom from '../../Buttom';
 import categories from '../../../utils/categories';
 import { SpendContext } from '../../../contexts/SpendContext';
+import generateId from '../../../utils/generateRandomId';
 
 const categoryNames = Object.keys(categories);
 
@@ -36,8 +37,20 @@ export default function NewItem({ modalVisible, showModal }) {
       setProductDate(productDate.concat('/'));
   }, [productDate]);
 
+  useEffect(() => {
+    cleanFields();
+  }, [modalVisible]);
+
+  function cleanFields() {
+    setProductDate('');
+    setProductName('');
+    setProductPrice('');
+    setProductCategory('');
+  }
+
   function saveProduct() {
     const product = {
+      id: generateId(),
       category: productCategory,
       date: productDate,
       name: productName,
@@ -67,6 +80,7 @@ export default function NewItem({ modalVisible, showModal }) {
               />
               <InputField
                 placeholder="Preço"
+                value={productPrice}
                 onChangeText={price => setProductPrice(price)}
               />
               <InputField

@@ -19,10 +19,9 @@ class Products {
   }
 
   async removeProduct(productToDelete) {
-    let products = this.getProducts();
+    let products = await this.getProducts();
     products = products.filter(product => product.id !== productToDelete.id);
-    await AsyncStorage.setItem('products', products);
-    return products;
+    await AsyncStorage.setItem('products', JSON.stringify(products));
   }
 }
 

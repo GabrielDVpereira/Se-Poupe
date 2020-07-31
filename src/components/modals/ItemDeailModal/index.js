@@ -1,11 +1,26 @@
-import React from 'react';
-
+import React, { useState, useContext } from 'react';
+import { ToastAndroid } from 'react-native';
 import { Title, Price, Category, Date, Name, Value, Content } from './styles';
 import Button from '../../Buttom';
 import ModalAnimated from '../ModalAnimated';
+import ConfirmationModal from '../ConfirmationModal';
+import { SpendContext } from '../../../contexts/SpendContext';
 
 export default function ItemModal({ product, visible, setVisible }) {
-  console.log(product);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(
+    false
+  );
+  const { productStateManager } = useContext(SpendContext);
+  const showConfirmationModal = () => setConfirmationModalVisible(true);
+  const hideConfirmationModal = () => setConfirmationModalVisible(false);
+  const hideItemDetailModal = () => setVisible(false);
+
+  async function deleteItem() {
+    await productStateManager.deleteProduct(product);
+    ToastAndroid.show('Produto deletado!', 100);
+    hideConfirmationModal();
+    hideItemDetailModal();
+  }
   return (
     <ModalAnimated visible={visible} setVisible={setVisible}>
       <Content>
@@ -22,8 +37,18 @@ export default function ItemModal({ product, visible, setVisible }) {
           <Name>Data</Name>
           <Value>{product.date}</Value>
         </Date>
-        <Button type="danger" text="Remover item" />
+        <Button
+          type="danger"
+          text="Remover item"
+          onPress={showConfirmationModal}
+        />
       </Content>
+      <ConfirmationModal
+        modalVisible={confirmationModalVisible}
+        showModal={setConfirmationModalVisible}
+        message="Você tem certeza que deseja deletar esse item?"
+        action={deleteItem}
+      />
     </ModalAnimated>
   );
 }

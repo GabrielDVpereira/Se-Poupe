@@ -38,9 +38,8 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <RnContainer>
-      <AnimatedContainer style={{ transform: [{ scale: containerScale }] }}>
+      <Container>
         <HomeHeader headerOffset={headerOffset} />
-
         <Content
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
@@ -61,7 +60,7 @@ export default function HomeScreen({ navigation }) {
           showModal={setNewItemModalVisible}
         />
         {renderItemDetailModal()}
-      </AnimatedContainer>
+      </Container>
     </RnContainer>
   );
 }

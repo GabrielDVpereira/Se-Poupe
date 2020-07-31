@@ -1,7 +1,5 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
 
-const { width: screenWidth, height: sreenHeight } = Dimensions.get('window');
 export const Container = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
 })`
