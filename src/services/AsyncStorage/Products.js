@@ -4,7 +4,11 @@ import { AsyncStorage } from 'react-native';
 class Products {
   async saveProduct(product) {
     let products = await this.getProducts();
-    products = [product, ...products];
+    if (products) {
+      products = [product, ...products];
+    } else {
+      products = [product];
+    }
     await AsyncStorage.setItem('products', JSON.stringify(products));
   }
 

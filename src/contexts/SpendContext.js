@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
 import { spendReducer } from '../reducers/SpendReducer';
 import ProductStorageService from '../services/AsyncStorage/Products';
 
@@ -23,7 +22,6 @@ export default function SpendContextProvider({ children }) {
 
   const productStateManager = {
     async addProduct(product) {
-      console.log(product);
       await ProductStorageService.saveProduct(product);
       dispatch({ products: [product, ...products] });
     },
