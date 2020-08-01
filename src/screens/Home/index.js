@@ -10,10 +10,8 @@ import { SpendContext } from '../../contexts/SpendContext';
 
 const scrollOffsetY = new Animated.Value(0);
 const headerOffset = Animated.diffClamp(scrollOffsetY, 0, 250);
-const containerScale = new Animated.Value(1);
-const AnimatedContainer = Animated.createAnimatedComponent(Container);
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   const [newItemModalVisible, setNewItemModalVisible] = useState(false);
   const [itemDetailModalVisible, setItemDetailModalVisible] = useState(false);
   const [productSelected, setProductSelected] = useState(null);
@@ -47,7 +45,10 @@ export default function HomeScreen({ navigation }) {
           )}
         >
           {products.map(product => (
-            <TouchableOpacity onPress={() => showProductDetailModal(product)}>
+            <TouchableOpacity
+              key={product.id}
+              onPress={() => showProductDetailModal(product)}
+            >
               <Card spend={product} />
             </TouchableOpacity>
           ))}

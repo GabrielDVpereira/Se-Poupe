@@ -39,12 +39,12 @@ export const SpendProgressBar = styled.View`
 
 export const Available = styled.View`
   height: 3px;
-  width: 200px;
+  width: 100%;
   background-color: #26dd78;
 `;
 export const Unavailable = styled.View`
   height: 3px;
-  width: 50px;
+  width: ${({ value }) => value}%;
   background-color: #ff1313;
   position: absolute;
 `;

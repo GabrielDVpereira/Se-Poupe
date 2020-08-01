@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Animated } from 'react-native';
 import { SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,8 @@ import {
   AppName,
 } from './styles';
 import FilterModal from '../modals/FilterModal';
+import getFormatedValue from '../../utils/getFormatedValue';
+import { SpendContext } from '../../contexts/SpendContext';
 
 const AnimatedHeader = Animated.createAnimatedComponent(Header);
 const AnimatedTotalContainer = Animated.createAnimatedComponent(TotalContainer);
@@ -24,6 +26,7 @@ const AnimatedAppName = Animated.createAnimatedComponent(AppName);
 export default function HomeHeader({ headerOffset }) {
   // const navigation = useNavigation();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
+  const { totalSpent, spendLimit } = useContext(SpendContext);
   return (
     <>
       {/* <NavigationIcon onPress={() => navigation.openDrawer()}>
@@ -76,11 +79,11 @@ export default function HomeHeader({ headerOffset }) {
           }}
         >
           <Title>Gasto total</Title>
-          <Total>R$ 1000,00</Total>
+          <Total>{getFormatedValue(totalSpent, 'money')}</Total>
           <SpendProgressBar>
             <Available />
-            <Unavailable />
-            <Progress>1000/5000</Progress>
+            <Unavailable value={(totalSpent / spendLimit) * 100} />
+            <Progress>{`${totalSpent}/${spendLimit}`}</Progress>
           </SpendProgressBar>
         </AnimatedTotalContainer>
       </AnimatedHeader>

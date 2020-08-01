@@ -17,7 +17,13 @@ export default function ItemModal({ product, visible, setVisible }) {
 
   async function deleteItem() {
     await productStateManager.deleteProduct(product);
-    ToastAndroid.show('Produto deletado!', 100);
+    ToastAndroid.showWithGravityAndOffset(
+      'Produto deletado!',
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
+      0,
+      0
+    );
     hideConfirmationModal();
     hideItemDetailModal();
   }
