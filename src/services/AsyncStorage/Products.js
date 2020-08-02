@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AsyncStorage } from 'react-native';
+import moment from 'moment';
 
 class Products {
   async saveProduct(product) {
@@ -22,6 +23,22 @@ class Products {
     let products = await this.getProducts();
     products = products.filter(product => product.id !== productToDelete.id);
     await AsyncStorage.setItem('products', JSON.stringify(products));
+  }
+
+  filter(products, filterRules) {
+    const { price, date, category } = filterRules;
+    if (price) {
+      products = products.filter(product => product.price <= price);
+    }
+    if (category) {
+      products = products.filter(product => product.category === category);
+    }
+    if (date) {
+      products = products.filter(
+        product => moment(product.date).format() <= moment(date).format()
+      );
+    }
+    return products;
   }
 }
 

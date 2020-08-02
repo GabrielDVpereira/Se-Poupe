@@ -45,6 +45,19 @@ export default function SpendContextProvider({ children }) {
       );
       dispatch({ products: newProductList });
     },
+    async filterProducts(price, category, date) {
+      const filterRules = { price, category, date };
+      const productsToFilter = await ProductStorageService.getProducts();
+      const productsFilterd = ProductStorageService.filter(
+        productsToFilter,
+        filterRules
+      );
+      dispatch({ products: productsFilterd });
+    },
+    async clearFilter() {
+      const productsFromStorage = await ProductStorageService.getProducts();
+      dispatch({ products: productsFromStorage });
+    },
   };
   return (
     <SpendContext.Provider

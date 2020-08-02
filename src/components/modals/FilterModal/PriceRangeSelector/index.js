@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animated, Dimensions } from 'react-native';
 
 import {
@@ -24,10 +24,14 @@ const PriceRangeSelectedAnimated = Animated.createAnimatedComponent(
 );
 const PriceRangeTextAnimated = Animated.createAnimatedComponent(PriceRangeText);
 
-export default function PriceRangeSelector() {
+export default function PriceRangeSelector({ onChange }) {
   const [priceSelectorOffset, setPriceSelectorOffset] = useState(0);
   const [priceRangeValue, setpriceRangeValue] = useState(0);
   const translatePriceX = new Animated.Value(0);
+
+  useEffect(() => {
+    onChange(priceRangeValue);
+  }, [priceRangeValue]);
 
   translatePriceX.addListener(progress => {
     setpriceRangeValue(Math.ceil(progress.value) * 16);

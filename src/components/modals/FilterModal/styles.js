@@ -19,3 +19,19 @@ export const Form = styled.View`
   justify-content: space-between;
   height: 30%;
 `;
+
+export const BtnView = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+`;
+
+export const BtnApplyView = styled.View`
+  width: 50%;
+  align-items: center;
+`;
+export const BtnClearView = styled.View`
+  width: 50%;
+  align-items: center;
+`;
