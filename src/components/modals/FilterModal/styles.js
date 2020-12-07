@@ -15,9 +15,8 @@ export const Title = styled.Text`
 
 export const Form = styled.View`
   width: 100%;
-  margin-top: 60px;
   justify-content: space-between;
-  height: 30%;
+  height: 40%;
 `;
 
 export const BtnView = styled.View`

@@ -4,6 +4,9 @@ export const spendReducer = (state, action) => {
       return [action.product, ...state];
     case 'ORDER':
       return action.spendOrderd;
+
+    case 'CLEAR':
+      return [];
     default:
       return action.products;
   }

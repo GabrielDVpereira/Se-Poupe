@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useEffect, useState } from 'react';
 import { spendReducer } from '../reducers/SpendReducer';
 import ProductStorageService from '../services/AsyncStorage/Products';
+import DefaultProducts from '../utils/products';
 
 export const SpendContext = createContext();
 
@@ -11,10 +12,10 @@ export default function SpendContextProvider({ children }) {
 
   async function fetchProducts() {
     const productsFromStorage = await ProductStorageService.getProducts();
-    if (productsFromStorage) {
-      dispatch({ products: productsFromStorage });
+    if (productsFromStorage?.length) {
+      dispatch({ products: [...productsFromStorage, ...DefaultProducts] });
     } else {
-      dispatch({ products: [] });
+      dispatch({ products: DefaultProducts });
     }
   }
 
@@ -47,7 +48,7 @@ export default function SpendContextProvider({ children }) {
     },
     async filterProducts(price, category, date) {
       const filterRules = { price, category, date };
-      const productsToFilter = await ProductStorageService.getProducts();
+      const productsToFilter = products;
       const productsFilterd = ProductStorageService.filter(
         productsToFilter,
         filterRules
@@ -58,10 +59,20 @@ export default function SpendContextProvider({ children }) {
       const productsFromStorage = await ProductStorageService.getProducts();
       dispatch({ products: productsFromStorage });
     },
+    clearProdductList() {
+      ProductStorageService.clearList();
+      dispatch({ type: 'CLEAR' });
+    },
   };
   return (
     <SpendContext.Provider
-      value={{ products, productStateManager, totalSpent, spendLimit }}
+      value={{
+        products,
+        productStateManager,
+        totalSpent,
+        spendLimit,
+        hasProducts: products.length > 0,
+      }}
     >
       {children}
     </SpendContext.Provider>

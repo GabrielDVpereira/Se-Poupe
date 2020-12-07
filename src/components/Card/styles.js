@@ -25,10 +25,10 @@ export const PriceContainer = styled.View`
 export const ItemName = styled.Text`
   margin-left: 20px;
   font-family: 'Montserrat_500Medium';
-  font-size: 20px;
+  font-size: 16px;
 `;
 export const ItemPrice = styled.Text`
   margin-right: 20px;
   font-family: 'Montserrat_600SemiBold';
-  font-size: 20px;
+  font-size: 16px;
 `;

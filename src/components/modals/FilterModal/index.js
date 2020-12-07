@@ -72,8 +72,13 @@ export default function({ visible, setVisible }) {
       {modalContentControl && (
         <Container>
           <Title>Filtrar</Title>
-          <PriceRangeSelector onChange={price => setFilterByPrice(price)} />
+          {/* <PriceRangeSelector onChange={price => setFilterByPrice(price)} /> */}
           <Form>
+            <Picker
+              label="Preço"
+              items={['Crescente', 'Decrescente']}
+              onChange={price => setFilterByPrice(price)}
+            />
             <Picker
               label="Categoria"
               items={categoryNames}

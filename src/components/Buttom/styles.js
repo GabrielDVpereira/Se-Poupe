@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.TouchableOpacity`
-  width: ${({ width }) => width};
+  min-width: ${({ width }) => width};
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding: 15px 10px;
   border-radius: 10px;

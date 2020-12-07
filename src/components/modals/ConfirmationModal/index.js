@@ -23,11 +23,11 @@ export default function ConfirmationModal({
           <Content>
             <ModalMessage>{message}</ModalMessage>
             <ContainerButtons>
-              <Button color="#D71E1E" onPress={action}>
-                <ButtonText>Sim</ButtonText>
-              </Button>
-              <Button color="#1C3FA5" onPress={hideModal}>
+              <Button color="#D71E1E" onPress={hideModal}>
                 <ButtonText>Não</ButtonText>
+              </Button>
+              <Button color="#1C3FA5" onPress={action}>
+                <ButtonText>Sim</ButtonText>
               </Button>
             </ContainerButtons>
           </Content>
