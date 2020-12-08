@@ -50,7 +50,15 @@ export default function HomeScreen() {
     return (
       <View style={{ width: '100%', alignItems: 'center' }}>
         <Image source={emptyImg} style={{ width: 150, height: 250 }} />
-        <Text style={{ marginBottom: 10 }}>Você não possui produtos</Text>
+        <Text
+          style={{
+            marginBottom: 10,
+            fontFamily: 'Montserrat_500Medium',
+            fontSize: 16,
+          }}
+        >
+          Você não possui produtos
+        </Text>
         <Button
           size="small"
           text="adicionar"
@@ -80,7 +88,15 @@ export default function HomeScreen() {
             }}
             onPress={() => setClearListModalVisible(true)}
           >
-            <Text style={{ color: '#fff', marginRight: 5 }}>Limpar</Text>
+            <Text
+              style={{
+                color: '#fff',
+                marginRight: 5,
+                fontFamily: 'Montserrat_600SemiBold',
+              }}
+            >
+              Limpar
+            </Text>
             <AntDesign name="delete" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
