@@ -33,9 +33,13 @@ export default function PriceRangeSelector({ onChange }) {
     onChange(priceRangeValue);
   }, [priceRangeValue]);
 
-  translatePriceX.addListener(progress => {
-    setpriceRangeValue(Math.ceil(progress.value) * 16);
-  });
+  useEffect(() => {
+    translatePriceX.addListener(progress => {
+      setpriceRangeValue(Math.ceil(progress.value) * 16);
+      return () => translatePriceX.removeAllListeners();
+    });
+  }, []);
+
   function handleStateChanged({ nativeEvent }) {
     translatePriceX.setValue(nativeEvent.x);
     setPriceSelectorOffset(nativeEvent.x);

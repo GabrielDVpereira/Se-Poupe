@@ -9,7 +9,7 @@ import {
   Montserrat_600SemiBold,
 } from '@expo-google-fonts/montserrat';
 import Routes from './src/routes/index.routes';
-import AuthContextProvider from './src/contexts/AuthContext';
+// import AuthContextProvider from './src/contexts/AuthContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,9 +20,9 @@ export default function App() {
 
   if (!fontsLoaded) return <View />;
   return (
-    <AuthContextProvider>
+    <>
       <StatusBar hidden />
       <Routes />
-    </AuthContextProvider>
+    </>
   );
 }

@@ -26,15 +26,17 @@ const AnimatedAppName = Animated.createAnimatedComponent(AppName);
 export default function HomeHeader({ headerOffset }) {
   // const navigation = useNavigation();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
-  const { totalSpent, spendLimit } = useContext(SpendContext);
+  const { totalSpent, spendLimit, hasProducts } = useContext(SpendContext);
   return (
     <>
       {/* <NavigationIcon onPress={() => navigation.openDrawer()}>
         <SimpleLineIcons name="menu" size={24} color="#fff" />
       </NavigationIcon> */}
-      <FilterIcon onPress={() => setFilterModalVisible(true)}>
-        <FontAwesome name="filter" size={24} color="#fff" />
-      </FilterIcon>
+      {hasProducts && (
+        <FilterIcon onPress={() => setFilterModalVisible(true)}>
+          <FontAwesome name="filter" size={24} color="#fff" />
+        </FilterIcon>
+      )}
       <AnimatedAppName
         style={{
           opacity: headerOffset.interpolate({
