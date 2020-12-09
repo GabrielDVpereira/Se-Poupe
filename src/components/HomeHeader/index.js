@@ -32,11 +32,11 @@ export default function HomeHeader({ headerOffset }) {
       {/* <NavigationIcon onPress={() => navigation.openDrawer()}>
         <SimpleLineIcons name="menu" size={24} color="#fff" />
       </NavigationIcon> */}
-      {hasProducts && (
-        <FilterIcon onPress={() => setFilterModalVisible(true)}>
-          <FontAwesome name="filter" size={24} color="#fff" />
-        </FilterIcon>
-      )}
+
+      <FilterIcon onPress={() => setFilterModalVisible(true)}>
+        <FontAwesome name="filter" size={24} color="#fff" />
+      </FilterIcon>
+
       <AnimatedAppName
         style={{
           opacity: headerOffset.interpolate({

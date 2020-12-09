@@ -1,7 +1,6 @@
 import React, { createContext, useReducer, useEffect, useState } from 'react';
 import { spendReducer } from '../reducers/SpendReducer';
 import ProductStorageService from '../services/AsyncStorage/Products';
-import DefaultProducts from '../utils/products';
 
 export const SpendContext = createContext();
 
@@ -13,9 +12,9 @@ export default function SpendContextProvider({ children }) {
   async function fetchProducts() {
     const productsFromStorage = await ProductStorageService.getProducts();
     if (productsFromStorage?.length) {
-      dispatch({ products: [...productsFromStorage, ...DefaultProducts] });
+      dispatch({ products: [...productsFromStorage] });
     } else {
-      dispatch({ products: DefaultProducts });
+      dispatch({ products: [] });
     }
   }
 
@@ -37,7 +36,8 @@ export default function SpendContextProvider({ children }) {
   const productStateManager = {
     async addProduct(product) {
       await ProductStorageService.saveProduct(product);
-      dispatch({ products: [product, ...products] });
+      const productsFromStorage = await ProductStorageService.getProducts();
+      dispatch({ products: [...productsFromStorage] });
     },
     async deleteProduct(product) {
       await ProductStorageService.removeProduct(product);
@@ -59,8 +59,8 @@ export default function SpendContextProvider({ children }) {
       const productsFromStorage = await ProductStorageService.getProducts();
       dispatch({ products: productsFromStorage });
     },
-    clearProdductList() {
-      ProductStorageService.clearList();
+    async clearProdductList() {
+      await ProductStorageService.clearList();
       dispatch({ type: 'CLEAR' });
     },
   };

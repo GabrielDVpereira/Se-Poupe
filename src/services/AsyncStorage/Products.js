@@ -29,12 +29,10 @@ class Products {
   }
 
   async clearList() {
-    await AsyncStorage.setItem('products', null);
+    return await AsyncStorage.removeItem('products');
   }
 
   filter(products, filterRules) {
-    console.log(products);
-
     const { price, date, category } = filterRules;
     if (price) {
       products = this.mergeSort(products, price);
