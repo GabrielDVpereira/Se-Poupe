@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Animated } from 'react-native';
-import { SimpleLineIcons, FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   Header,
   Title,
@@ -11,7 +10,6 @@ import {
   Unavailable,
   Progress,
   TotalContainer,
-  NavigationIcon,
   FilterIcon,
   AppName,
 } from './styles';
@@ -24,15 +22,10 @@ const AnimatedTotalContainer = Animated.createAnimatedComponent(TotalContainer);
 const AnimatedAppName = Animated.createAnimatedComponent(AppName);
 
 export default function HomeHeader({ headerOffset }) {
-  // const navigation = useNavigation();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
-  const { totalSpent, spendLimit, hasProducts } = useContext(SpendContext);
+  const { totalSpent, spendLimit } = useContext(SpendContext);
   return (
     <>
-      {/* <NavigationIcon onPress={() => navigation.openDrawer()}>
-        <SimpleLineIcons name="menu" size={24} color="#fff" />
-      </NavigationIcon> */}
-
       <FilterIcon onPress={() => setFilterModalVisible(true)}>
         <FontAwesome name="filter" size={24} color="#fff" />
       </FilterIcon>
