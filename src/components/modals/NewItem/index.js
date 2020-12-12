@@ -37,16 +37,16 @@ export default function NewItem({ modalVisible, showModal }) {
       setProductDate(productDate.concat('/'));
   }, [productDate]);
 
-  useEffect(() => {
-    cleanFields();
-  }, [modalVisible]);
-
   function cleanFields() {
     setProductDate('');
     setProductName('');
     setProductPrice('');
     setProductCategory('');
   }
+
+  useEffect(() => {
+    cleanFields();
+  }, [modalVisible]);
 
   function saveProduct() {
     const product = {
