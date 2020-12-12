@@ -78,7 +78,7 @@ export default function HomeHeader({ headerOffset }) {
           <SpendProgressBar>
             <Available />
             <Unavailable value={(totalSpent / spendLimit) * 100} />
-            <Progress>{`${totalSpent}/${spendLimit}`}</Progress>
+            <Progress>{`${totalSpent.toFixed(2)}/${spendLimit}`}</Progress>
           </SpendProgressBar>
         </AnimatedTotalContainer>
       </AnimatedHeader>

@@ -62,11 +62,7 @@ export default function NewItem({ modalVisible, showModal }) {
 
   return (
     <Modal visible={modalVisible} transparent animationType="fade">
-      <Container
-        onPress={() => {
-          showModal(false);
-        }}
-      >
+      <Container>
         <ModalContent>
           <Content>
             <Title>Novo item</Title>
