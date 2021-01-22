@@ -57,6 +57,11 @@ export const CloseButton = styled.TouchableOpacity`
 `;
 
 export const PickerContainer = styled.View`
-  margin-top: 20px;
+  margin-top: 10px;
   width: 80%;
+`;
+
+export const DatePickerContainer = styled.View`
+  width: 80%;
+  margin-top: 10px;
 `;

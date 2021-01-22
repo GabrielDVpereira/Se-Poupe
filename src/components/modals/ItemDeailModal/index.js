@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { ToastAndroid } from 'react-native';
+import moment from 'moment';
 import { Title, Price, Category, Date, Name, Value, Content } from './styles';
 import Button from '../../Buttom';
 import ModalAnimated from '../ModalAnimated';
@@ -41,7 +42,7 @@ export default function ItemModal({ product, visible, setVisible }) {
         </Category>
         <Date>
           <Name>Data</Name>
-          <Value>{product.date}</Value>
+          <Value>{moment(product.date).format('DD/MM/YYYY')}</Value>
         </Date>
         <Button
           type="danger"

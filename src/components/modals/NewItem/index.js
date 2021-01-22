@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Picker from '../../Picker';
+import DatePicker from '../../DatePicker';
 
 import {
   Container,
@@ -12,6 +13,7 @@ import {
   Form,
   CloseButton,
   PickerContainer,
+  DatePickerContainer,
 } from './styles';
 import Buttom from '../../Buttom';
 import categories from '../../../utils/categories';
@@ -21,7 +23,6 @@ import generateId from '../../../utils/generateRandomId';
 const categoryNames = Object.keys(categories);
 
 export default function NewItem({ modalVisible, showModal }) {
-  const [keyPressed, setKeyPressed] = useState('');
   const [productDate, setProductDate] = useState('');
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
@@ -29,13 +30,6 @@ export default function NewItem({ modalVisible, showModal }) {
 
   const { productStateManager } = useContext(SpendContext);
   const hideModal = () => showModal(false);
-
-  useEffect(() => {
-    if (productDate.length === 2 && keyPressed !== 'Backspace')
-      setProductDate(productDate.concat('/'));
-    if (productDate.length === 5 && keyPressed !== 'Backspace')
-      setProductDate(productDate.concat('/'));
-  }, [productDate]);
 
   function cleanFields() {
     setProductDate('');
@@ -79,13 +73,9 @@ export default function NewItem({ modalVisible, showModal }) {
                 value={productPrice}
                 onChangeText={price => setProductPrice(price)}
               />
-              <InputField
-                maxLength={10}
-                placeholder="Data"
-                value={productDate}
-                onChangeText={date => setProductDate(date)}
-                onKeyPress={({ nativeEvent }) => setKeyPressed(nativeEvent.key)}
-              />
+              <DatePickerContainer>
+                <DatePicker onChange={date => setProductDate(date)} />
+              </DatePickerContainer>
               <PickerContainer>
                 <Picker
                   label="Categoria"
